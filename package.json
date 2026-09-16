@@ -1,0 +1,43 @@
+{
+  "name": "ash-and-oath",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --mode production",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "tsx --test tests/engine.test.ts",
+    "dev:live": "vite --host 127.0.0.1 --mode production",
+    "dev:demo": "vite --host 127.0.0.1 --mode demo",
+    "dev:emulator": "vite --host 127.0.0.1 --mode emulator",
+    "build:emulator": "tsc -b && vite build --mode emulator",
+    "build:functions": "npm --prefix functions run build",
+    "emulators": "npm run build:functions && node scripts/firebase-emulators.mjs",
+    "test:backend": "node --test tests/backend.test.mjs",
+    "test:rules": "tsx --test tests/rules.test.ts",
+    "test:integration": "npm run build:functions && node scripts/firebase-emulators.mjs --test",
+    "test:ui": "playwright test"
+  },
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/inter": "^5.3.0",
+    "firebase": "^12.19.0",
+    "lucide-react": "^1.44.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.2",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.20.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "prettier": "^3.9.6",
+    "sharp": "^0.35.4",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}

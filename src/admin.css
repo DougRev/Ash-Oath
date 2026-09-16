@@ -1,0 +1,289 @@
+.admin-switch {
+  position: fixed;
+  bottom: 18px;
+  right: 22px;
+  z-index: 45;
+  box-shadow: 0 4px 18px #0003;
+}
+.admin-dashboard {
+  max-width: 1400px;
+  margin: auto;
+  padding: 48px 32px 70px;
+  color: #302e26;
+}
+.admin-heading,
+.admin-section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.admin-dashboard h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 54px;
+  margin: 12px 0;
+}
+.admin-dashboard h2 {
+  font-size: 27px;
+  margin: 0 0 12px;
+  font-family: 'Cormorant Garamond', serif;
+}
+.admin-dashboard p {
+  line-height: 1.6;
+  color: #686657;
+}
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 30px 0;
+}
+.admin-stats article,
+.admin-panel {
+  background: #fffdf7;
+  border: 1px solid #dedccc;
+  border-radius: 14px;
+  padding: 25px;
+}
+.admin-stats strong {
+  display: block;
+  font-size: 38px;
+  color: #485944;
+  margin-top: 8px;
+}
+.admin-panel {
+  margin-bottom: 22px;
+}
+.admin-search {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 22px 0;
+}
+.admin-search input,
+.admin-moderation textarea {
+  border: 1px solid #bbbcae;
+  border-radius: 7px;
+  padding: 12px;
+  background: white;
+  color: #292d26;
+  font: inherit;
+}
+.admin-search input {
+  flex: 1;
+  min-width: 200px;
+}
+.admin-table-wrap {
+  overflow: auto;
+}
+.admin-dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+.admin-dashboard th,
+.admin-dashboard td {
+  padding: 16px 10px;
+  border-bottom: 1px solid #e8e5d9;
+}
+.admin-dashboard th {
+  font-size: 12px;
+  color: #777665;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.admin-dashboard small {
+  display: block;
+  overflow-wrap: anywhere;
+  color: #757464;
+  line-height: 1.6;
+}
+.admin-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.admin-score {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid #e8e5d9;
+  text-transform: capitalize;
+}
+.admin-audit {
+  padding: 16px 0;
+  border-bottom: 1px solid #e8e5d9;
+}
+.admin-audit p {
+  margin: 5px 0;
+}
+.admin-error {
+  background: #fff0eb;
+  padding: 16px;
+  border-left: 3px solid #a54131;
+}
+.admin-moderation {
+  padding: 22px;
+  background: #f1efe5;
+  border-radius: 9px;
+  margin-top: 25px;
+}
+.admin-moderation textarea {
+  display: block;
+  width: 100%;
+  min-height: 90px;
+  margin: 12px 0;
+}
+.admin-actions {
+  display: flex;
+  gap: 12px;
+}
+@media (max-width: 650px) {
+  .admin-dashboard {
+    padding: 25px 16px 85px;
+  }
+  .admin-dashboard h1 {
+    font-size: 40px;
+  }
+  .admin-stats {
+    gap: 8px;
+  }
+  .admin-stats article {
+    padding: 13px;
+    font-size: 12px;
+  }
+  .admin-stats strong {
+    font-size: 28px;
+  }
+  .admin-columns {
+    grid-template-columns: 1fr;
+  }
+  .admin-panel {
+    padding: 18px;
+  }
+  .admin-switch {
+    bottom: 78px;
+    right: 14px;
+    font-size: 12px;
+  }
+  .admin-search {
+    display: grid;
+  }
+  .admin-search input {
+    min-width: 0;
+    width: 100%;
+  }
+}
+/* Keep this management surface readable independently of the game's dark theme. */
+.admin-dashboard {
+  background: #f3f1e7;
+  min-height: 100vh;
+}
+.admin-dashboard .button-secondary {
+  color: #3c503d;
+  border-color: #7f8b75;
+  background: #faf9f2;
+}
+.admin-dashboard a {
+  color: #385e46;
+}
+.admin-dashboard .letter-label {
+  color: #826127;
+}
+@media (max-width: 650px) {
+  .admin-table-wrap {
+    overflow: visible;
+  }
+  .admin-dashboard thead {
+    display: none;
+  }
+  .admin-dashboard table,
+  .admin-dashboard tbody,
+  .admin-dashboard tr,
+  .admin-dashboard td {
+    display: block;
+    width: 100%;
+  }
+  .admin-dashboard tr {
+    border: 1px solid #dedccc;
+    border-radius: 8px;
+    margin: 14px 0;
+    padding: 8px;
+  }
+  .admin-dashboard td {
+    padding: 10px 5px;
+  }
+  .admin-dashboard td:before {
+    display: block;
+    color: #666c59;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .admin-dashboard td:nth-child(1):before {
+    content: 'Commander';
+  }
+  .admin-dashboard td:nth-child(2):before {
+    content: 'Faction / tier';
+  }
+  .admin-dashboard td:nth-child(3):before {
+    content: 'Treasury';
+  }
+  .admin-dashboard td:nth-child(4):before {
+    content: 'Status';
+  }
+  .admin-dashboard td:last-child {
+    border-bottom: 0;
+  }
+  .admin-dashboard td .button {
+    width: 100%;
+  }
+}
+.admin-balance .admin-actions {
+  flex-wrap: wrap;
+  align-items: end;
+}
+.admin-balance label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+}
+.admin-balance input,
+.admin-balance select {
+  padding: 10px;
+  border: 1px solid #b8bcae;
+  border-radius: 6px;
+  background: #faf9f2;
+  color: #26382b;
+  max-width: 100%;
+}
+@media (max-width: 650px) {
+  .admin-balance .admin-table-wrap {
+    overflow-x: auto;
+  }
+  .admin-balance table {
+    display: table;
+    min-width: 620px;
+  }
+  .admin-balance thead {
+    display: table-header-group;
+  }
+  .admin-balance tbody {
+    display: table-row-group;
+  }
+  .admin-balance tr {
+    display: table-row;
+  }
+  .admin-balance td {
+    display: table-cell;
+    width: auto;
+    padding: 10px;
+  }
+  .admin-balance td:before {
+    display: none;
+  }
+}

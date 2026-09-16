@@ -1,0 +1,15 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.env*
+!.env.example
+playwright-report/
+test-results/
+functions/lib/
+.firebase/
+*-debug.log*
+.firestore-rules-audit.md
+.emulator-data/
+.qa-*.mjs
+
+.qa-*-results.txt

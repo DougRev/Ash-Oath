@@ -1,0 +1,2582 @@
+/* Kept in a separate file so each responsive boundary has one owner. */
+@media (min-width: 1700px) {
+  body .realm-scene {
+    height: 465px;
+  }
+  body .dungeon-preview-image {
+    height: 182px;
+  }
+  body .chapter-step {
+    padding: 22px 0;
+  }
+  body .chapter-step p {
+    font-size: 12px;
+  }
+  body .chapter-step .text-link {
+    font-size: 11px;
+  }
+  body .overview-secondary h2 {
+    font-size: 30px;
+  }
+}
+@media (max-width: 1300px) {
+  body .resource-bar {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  body .resource {
+    padding-left: 18px;
+    padding-right: 18px;
+    gap: 10px;
+  }
+  body .resource small {
+    font-size: 9px;
+  }
+  body .resource strong {
+    font-size: 16px;
+  }
+  body .header-actions {
+    padding-left: 10px;
+  }
+  body .overview-primary {
+    grid-template-columns: minmax(0, 1.85fr) minmax(272px, 1fr);
+  }
+  body .chapter-panel {
+    padding: 21px 19px;
+  }
+  body .chapter-step {
+    gap: 12px;
+  }
+  body .chapter-step h3 {
+    font-size: 23px;
+  }
+  body .chapter-quote {
+    font-size: 13px;
+  }
+  body .overview-secondary {
+    grid-template-columns: 1.45fr 1fr;
+  }
+  body .beyond-panel .subtle-label {
+    display: none;
+  }
+  body .dungeon-preview {
+    gap: 14px;
+    grid-template-columns: 1fr 1fr;
+  }
+  body .dungeon-preview-copy h3 {
+    font-size: 21px;
+  }
+  body .stat-context {
+    display: none;
+  }
+  body .faction-name {
+    width: 93px;
+    font-size: 10px;
+  }
+  body .war-preview-footer {
+    align-items: flex-end;
+  }
+  body .war-preview-footer .simulation-label {
+    max-width: 65px;
+    font-size: 8px;
+  }
+  body .activity-strip .subtle-label {
+    display: none;
+  }
+  body .building-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  body .building-card p {
+    min-height: 38px;
+  }
+  body .building-benefit {
+    min-height: 0;
+  }
+  body .settlement-layout {
+    grid-template-columns: 1.4fr 1fr;
+  }
+  body .upgrade-panel {
+    padding: 23px;
+  }
+  body .dungeon-layout,
+  body .dungeon-info-grid {
+    grid-template-columns: 1.4fr 1fr;
+  }
+  body .raid-preparation {
+    padding: 21px;
+  }
+  body .area-tab {
+    padding: 15px 14px;
+    gap: 10px;
+  }
+  body .area-tab strong {
+    font-size: 21px;
+  }
+  body .opponent-header,
+  body .opponent-row {
+    grid-template-columns: minmax(180px, 1.6fr) 0.8fr 0.5fr 0.7fr 119px;
+    gap: 10px;
+  }
+  body .opponent-faction {
+    font-size: 9px;
+  }
+  body .inventory-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  body .chest-card-copy {
+    padding: 20px;
+  }
+  body .chest-card-copy h2 {
+    font-size: 26px;
+  }
+  body .chest-art {
+    height: 182px;
+  }
+  body .chest-card-copy > p {
+    min-height: 35px;
+  }
+  body .trader-welcome {
+    gap: 18px;
+    padding: 23px;
+  }
+  body .pity-counter {
+    max-width: 171px;
+    padding-left: 18px;
+  }
+  body .trader-welcome h2 {
+    font-size: 30px;
+  }
+  body .trader-welcome p {
+    max-width: 430px;
+  }
+  body .army-banner h2 {
+    font-size: 26px;
+  }
+  body .army-banner > .button {
+    font-size: 10px;
+  }
+  body .hero-profile {
+    gap: 20px;
+    padding: 25px;
+  }
+}
+@media (max-width: 1120px) {
+  body .sidebar {
+    width: 192px;
+  }
+  body .main-shell {
+    margin-left: 192px;
+  }
+  body .brand-name {
+    font-size: 25px;
+  }
+  body .brand-tagline {
+    font-size: 6px;
+  }
+  body .nav-item {
+    font-size: 11px;
+    padding: 15px 12px;
+    gap: 12px;
+  }
+  body .resource small {
+    display: none;
+  }
+  body .resource {
+    padding-left: 17px;
+    padding-right: 17px;
+  }
+  body .gold-resource,
+  body .ap-resource {
+    flex: 1;
+  }
+  body .header-actions {
+    padding-left: 6px;
+  }
+  body .help-button span {
+    display: none;
+  }
+  body main {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+  body h1 {
+    font-size: 38px;
+  }
+  body .overview-primary {
+    grid-template-columns: minmax(0, 1.8fr) minmax(255px, 1fr);
+    gap: 12px;
+  }
+  body .realm-caption {
+    left: 21px;
+  }
+  body .realm-caption h2 {
+    font-size: 34px;
+  }
+  body .realm-caption p {
+    font-size: 10px;
+  }
+  body .realm-scene {
+    height: 404px;
+  }
+  body .chapter-panel {
+    padding: 20px 17px;
+  }
+  body .chapter-panel h2 {
+    font-size: 26px;
+  }
+  body .step-number {
+    width: 31px;
+    height: 31px;
+    font-size: 16px;
+  }
+  body .chapter-step p {
+    font-size: 10px;
+  }
+  body .chapter-step .text-link {
+    font-size: 9px;
+  }
+  body .chapter-step {
+    padding: 19px 0;
+  }
+  body .chapter-step:first-child {
+    padding-top: 3px;
+  }
+  body .chapter-step h3 {
+    font-size: 21px;
+  }
+  body .chapter-quote {
+    display: none;
+  }
+  body .overview-secondary {
+    grid-template-columns: 1fr;
+  }
+  body .dungeon-preview {
+    grid-template-columns: 1.1fr 1fr;
+  }
+  body .dungeon-preview-image {
+    height: 188px;
+  }
+  body .dungeon-preview-copy h3 {
+    font-size: 30px;
+  }
+  body .dungeon-preview-copy p {
+    font-size: 12px;
+  }
+  body .dungeon-preview-copy .button {
+    max-width: 260px;
+    font-size: 12px;
+  }
+  body .war-preview .influence-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 28px;
+  }
+  body .war-preview-footer .simulation-label {
+    max-width: none;
+  }
+  body .chapter-step.complete p {
+    font-size: 10px;
+  }
+  body .realm-progress {
+    left: 19px;
+    right: 19px;
+  }
+  body .realm-step small {
+    font-size: 8px;
+  }
+  body .settlement-layout {
+    grid-template-columns: 1fr;
+  }
+  body .settlement-scene {
+    height: 390px;
+  }
+  body .upgrade-panel {
+    display: block;
+  }
+  body .upgrade-panel > .panel-icon {
+    float: right;
+    margin: 0;
+  }
+  body .upgrade-benefits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 30px;
+  }
+  body .upgrade-panel > .button {
+    width: auto;
+    margin-top: 0;
+  }
+  body .upgrade-panel > .center-muted {
+    display: inline;
+    margin-left: 14px;
+  }
+  body .troop-panel {
+    padding: 21px;
+  }
+  body .troop-panel-title {
+    gap: 15px;
+  }
+  body .troop-emblem {
+    width: 67px;
+    height: 79px;
+  }
+  body .troop-panel-title h2 {
+    font-size: 30px;
+  }
+  body .troop-stats > div {
+    padding-left: 12px;
+  }
+  body .troop-stats strong {
+    font-size: 29px;
+  }
+  body .troop-stats span {
+    font-size: 8px;
+  }
+  body .troop-description {
+    min-height: 74px;
+  }
+  body .troop-secondary-actions {
+    flex-direction: column;
+    gap: 6px;
+  }
+  body .blacksmith-banner {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  body .blacksmith-banner > div {
+    flex-basis: 70%;
+  }
+  body .blacksmith-banner > .button,
+  body .blacksmith-banner > .positive {
+    margin-left: 44px;
+  }
+  body .army-banner {
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+  body .army-banner > .button {
+    margin-left: 51px;
+  }
+  body .army-banner > div {
+    flex: 1;
+  }
+  body .unlock-banner {
+    flex-wrap: wrap;
+  }
+  body .unlock-banner > .button {
+    margin-left: 46px;
+  }
+  body .hero-profile {
+    flex-wrap: wrap;
+  }
+  body .hero-profile > .personal-strength {
+    margin-left: 120px;
+    flex-basis: 100%;
+    border: 0;
+    text-align: left;
+    padding-left: 0;
+  }
+  body .personal-strength strong {
+    font-size: 36px;
+  }
+  body .personal-strength span {
+    display: inline;
+    margin-left: 12px;
+  }
+  body .hero-stat-line {
+    gap: 12px;
+    font-size: 10px;
+  }
+  body .loadout-summary {
+    grid-template-columns: 1fr;
+  }
+  body .loadout-summary > div {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding: 16px 20px;
+  }
+  body .loadout-summary > div:first-child {
+    border: 0;
+  }
+  body .inventory-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  body .item-tile {
+    padding: 12px;
+  }
+  body .item-tile h3 {
+    font-size: 21px;
+  }
+  body .area-tab strong {
+    font-size: 18px;
+  }
+  body .area-tab > svg:last-child {
+    display: none;
+  }
+  body .area-tab small {
+    font-size: 8px;
+    line-height: 1.5;
+  }
+  body .area-number {
+    font-size: 23px;
+  }
+  body .dungeon-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  body .dungeon-info-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  body .dungeon-scene-caption {
+    left: 22px;
+    right: 22px;
+  }
+  body .dungeon-scene-caption h2 {
+    font-size: 39px;
+  }
+  body .dungeon-scene-caption > p {
+    font-size: 11px;
+  }
+  body .dungeon-scene-top {
+    left: 18px;
+    right: 18px;
+    align-items: flex-start;
+    gap: 6px;
+    flex-direction: column;
+  }
+  body .region-label {
+    font-size: 8px;
+  }
+  body .stage-chip {
+    font-size: 7px;
+  }
+  body .raid-preparation h2 {
+    font-size: 28px;
+  }
+  body .raid-mode > button {
+    font-size: 9px;
+    gap: 5px;
+  }
+  body .forecast-title {
+    font-size: 9px;
+  }
+  body .forecast-title > strong {
+    font-size: 9px;
+  }
+  body .stage-path button > span {
+    width: 31px;
+    height: 31px;
+  }
+  body .stage-path button:before {
+    top: 15px;
+  }
+  body .stage-path button small {
+    font-size: 6px;
+  }
+  body .war-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  body .war-season-hero > div {
+    padding: 25px;
+  }
+  body .war-season-hero h2 {
+    font-size: 40px;
+  }
+  body .faction-standings {
+    padding: 23px 19px;
+  }
+  body .faction-standings h2 {
+    font-size: 26px;
+  }
+  body .faction-standings .influence-row {
+    gap: 6px;
+  }
+  body .opponent-header {
+    display: none;
+  }
+  body .opponent-row {
+    grid-template-columns: 1.8fr 1fr 115px;
+    gap: 10px 18px;
+  }
+  body .opponent-faction {
+    grid-row: 2;
+    grid-column: 1;
+    padding-left: 51px;
+  }
+  body .opponent-defense {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  body .opponent-gold {
+    grid-row: 2;
+    grid-column: 2;
+  }
+  body .opponent-row > .button {
+    grid-row: 1 / 3;
+    grid-column: 3;
+  }
+  body .season-days {
+    padding: 8px 10px;
+    font-size: 9px;
+  }
+  body .season-details-grid {
+    grid-template-columns: 1fr;
+  }
+  body .chest-grid {
+    gap: 12px;
+  }
+  body .chest-card-copy {
+    padding: 16px;
+  }
+  body .chest-card-copy h2 {
+    font-size: 23px;
+  }
+  body .chest-art {
+    height: 160px;
+  }
+  body .chest-tier-label {
+    font-size: 6px;
+    left: 9px;
+    top: 12px;
+    padding: 4px;
+  }
+  body .chest-card-copy > .button {
+    font-size: 10px;
+    gap: 6px;
+    padding: 10px 8px;
+  }
+  body .chest-guarantee {
+    font-size: 9px;
+    min-height: 25px;
+  }
+  body .chest-card-copy > p {
+    font-size: 10px;
+    min-height: 36px;
+  }
+  body .trader-welcome {
+    flex-wrap: wrap;
+  }
+  body .trader-welcome > div:not(.pity-counter) {
+    flex: 1;
+  }
+  body .trader-welcome .pity-counter {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    max-width: none;
+    width: 100%;
+    padding: 15px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+  }
+  body .pity-counter strong {
+    font-size: 29px;
+  }
+  body .trader-welcome .pity-counter > span {
+    margin: 0;
+  }
+  body .pity-dots {
+    margin: 0 0 0 auto;
+  }
+  body .toast-container {
+    left: calc(50% + 96px);
+  }
+}
+@media (max-width: 900px) {
+  body .sidebar {
+    width: 182px;
+  }
+  body .main-shell {
+    margin-left: 182px;
+  }
+  body .brand-name {
+    font-size: 24px;
+    letter-spacing: 0.7px;
+  }
+  body .brand-tagline {
+    font-size: 5.5px;
+  }
+  body .resource-bar {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  body .resource {
+    padding-left: 13px;
+    padding-right: 13px;
+    gap: 9px;
+  }
+  body .troop-resource {
+    display: none;
+  }
+  body .profile {
+    padding: 19px 12px;
+    gap: 9px;
+  }
+  body .profile strong {
+    font-size: 17px;
+  }
+  body .profile small {
+    font-size: 8px;
+  }
+  body .avatar {
+    width: 36px;
+    height: 36px;
+  }
+  body .nav-item {
+    font-size: 10px;
+    gap: 10px;
+    padding: 14px 10px;
+  }
+  body main {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  body h1 {
+    font-size: 35px;
+  }
+  body .overview-primary {
+    grid-template-columns: 1fr;
+  }
+  body .realm-scene {
+    height: 370px;
+  }
+  body .chapter-panel {
+    padding: 19px 22px;
+  }
+  body .chapter-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 17px;
+  }
+  body .chapter-step {
+    border-top: 0;
+    border-left: 1px solid #3f4535;
+    padding: 0 0 0 16px;
+    display: block;
+  }
+  body .chapter-step:first-child {
+    border-left: 0;
+    padding: 0;
+  }
+  body .step-number {
+    margin-bottom: 10px;
+    width: 29px;
+    height: 29px;
+  }
+  body .chapter-step h3 {
+    font-size: 22px;
+  }
+  body .chapter-step p {
+    font-size: 9px;
+    min-height: 43px;
+  }
+  body .chapter-step .text-link {
+    font-size: 8px;
+    gap: 5px;
+  }
+  body .chapter-step .text-link svg {
+    width: 12px;
+  }
+  body .chapter-panel h2 {
+    margin-bottom: 19px;
+  }
+  body .chapter-step.complete p {
+    font-size: 9px;
+  }
+  body .stats-band > div {
+    padding: 0 17px;
+    gap: 11px;
+  }
+  body .stats-band svg {
+    width: 22px;
+  }
+  body .stats-band small {
+    font-size: 9px;
+  }
+  body .dungeon-preview-image {
+    height: 165px;
+  }
+  body .dungeon-preview-copy h3 {
+    font-size: 27px;
+  }
+  body .dungeon-preview-copy p {
+    font-size: 10px;
+  }
+  body .dungeon-preview-copy .button {
+    font-size: 11px;
+  }
+  body .war-preview .influence-list {
+    column-gap: 19px;
+  }
+  body .war-preview .faction-name {
+    width: 83px;
+    font-size: 9px;
+  }
+  body .war-preview .influence-row {
+    gap: 7px;
+  }
+  body .activity-strip-title {
+    font-size: 16px;
+  }
+  body .activity-strip-title svg {
+    display: none;
+  }
+  body .activity-strip p {
+    font-size: 9px;
+  }
+  body .page-intro p {
+    font-size: 11px;
+  }
+  body .local-status .desktop-only {
+    display: none;
+  }
+  body .dungeon-area-tabs {
+    gap: 8px;
+  }
+  body .area-tab {
+    padding: 12px 10px;
+    gap: 8px;
+  }
+  body .area-tab strong {
+    font-size: 16px;
+  }
+  body .area-number {
+    font-size: 20px;
+    min-width: 18px;
+  }
+  body .area-tab small {
+    font-size: 7px;
+  }
+  body .dungeon-layout {
+    grid-template-columns: 1fr;
+  }
+  body .dungeon-scene {
+    min-height: 420px;
+  }
+  body .dungeon-scene-top {
+    flex-direction: row;
+    align-items: center;
+  }
+  body .dungeon-scene-caption h2 {
+    font-size: 43px;
+  }
+  body .dungeon-scene-caption > p {
+    max-width: 430px;
+  }
+  body .dungeon-scene-caption {
+    left: 26px;
+    right: 26px;
+  }
+  body .stage-path button > span {
+    width: 37px;
+    height: 37px;
+  }
+  body .stage-path button:before {
+    top: 18px;
+  }
+  body .stage-path button small {
+    font-size: 8px;
+  }
+  body .raid-preparation {
+    padding: 25px;
+  }
+  body .raid-preparation h2 {
+    font-size: 32px;
+  }
+  body .mode-description {
+    font-size: 11px;
+    min-height: 0;
+  }
+  body .raid-mode > button {
+    font-size: 11px;
+    padding: 11px 9px;
+  }
+  body .tactic-picker button {
+    font-size: 10px;
+  }
+  body .forecast-title,
+  body .forecast-title > strong {
+    font-size: 11px;
+  }
+  body .forecast-range {
+    font-size: 9px;
+  }
+  body .dungeon-info-grid {
+    gap: 17px;
+  }
+  body .army-banner .panel-icon {
+    display: none;
+  }
+  body .army-banner > .button {
+    margin-left: 0;
+  }
+  body .army-banner > div {
+    flex-basis: 100%;
+  }
+  body .troop-grid {
+    gap: 15px;
+  }
+  body .troop-panel {
+    padding: 18px;
+  }
+  body .troop-emblem {
+    width: 48px;
+    height: 68px;
+  }
+  body .troop-emblem svg {
+    width: 33px;
+  }
+  body .troop-panel-title {
+    gap: 12px;
+  }
+  body .troop-panel-title h2 {
+    font-size: 26px;
+  }
+  body .troop-panel-title .letter-label {
+    font-size: 6px;
+  }
+  body .troop-panel-title p {
+    font-size: 9px;
+  }
+  body .troop-stats > div {
+    padding-left: 9px;
+  }
+  body .troop-stats strong {
+    font-size: 26px;
+  }
+  body .troop-stats strong em {
+    font-size: 16px;
+  }
+  body .troop-stats span {
+    font-size: 7px;
+  }
+  body .troop-description {
+    font-size: 10px;
+    min-height: 70px;
+  }
+  body .troop-panel > .button {
+    font-size: 10px;
+    gap: 8px;
+  }
+  body .troop-secondary-actions > button {
+    font-size: 9px;
+  }
+  body .hero-profile .hero-sigil {
+    width: 80px;
+    height: 100px;
+  }
+  body .hero-profile > .personal-strength {
+    margin-left: 100px;
+  }
+  body .hero-profile .letter-label {
+    font-size: 8px;
+  }
+  body .hero-profile h2 {
+    font-size: 33px;
+  }
+  body .hero-profile p {
+    max-width: 290px;
+  }
+  body .inventory-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  body .page-intro > .season-days {
+    display: none;
+  }
+  body .war-layout {
+    grid-template-columns: 1fr;
+  }
+  body .war-season-hero {
+    min-height: 250px;
+  }
+  body .faction-standings .influence-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 17px 25px;
+  }
+  body .faction-standings .faction-name {
+    width: 89px;
+    font-size: 9px;
+  }
+  body .faction-standings .influence-percent {
+    font-size: 9px;
+  }
+  body .allegiance-bar {
+    padding: 20px;
+    gap: 14px;
+  }
+  body .allegiance-bar h3 {
+    font-size: 24px;
+  }
+  body .allegiance-bar > .button {
+    font-size: 10px;
+  }
+  body .battlefield {
+    padding: 20px;
+  }
+  body .battlefield .section-heading {
+    align-items: flex-start;
+    gap: 10px;
+  }
+  body .battlefield .simulation-label {
+    font-size: 7px;
+    text-align: right;
+    padding-top: 7px;
+    line-height: 1.5;
+  }
+  body .battlefield h2 {
+    font-size: 27px;
+  }
+  body .opponent-header,
+  body .opponent-row {
+    column-gap: 13px;
+    grid-template-columns: 1.7fr 0.6fr 115px;
+  }
+  body .opponent-identity {
+    gap: 9px;
+  }
+  body .opponent-identity strong {
+    font-size: 10px;
+  }
+  body .opponent-identity > div > span {
+    font-size: 8px;
+  }
+  body .opponent-defense {
+    font-size: 11px;
+  }
+  body .opponent-gold {
+    font-size: 10px;
+  }
+  body .realm-avatar {
+    width: 32px;
+    height: 36px;
+    font-size: 22px;
+  }
+  body .opponent-faction {
+    padding-left: 41px;
+    font-size: 8px;
+  }
+  body .war-donation {
+    padding: 20px;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  body .war-donation .donation-icon {
+    display: none;
+  }
+  body .war-donation > div {
+    flex-basis: 100%;
+  }
+  body .war-donation > .button {
+    margin-top: 4px;
+  }
+  body .trader-wallet {
+    display: none;
+  }
+  body .chest-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  body .chest-card {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+  }
+  body .chest-art {
+    height: 100%;
+    min-height: 227px;
+    border-bottom: 0;
+    border-right: 1px solid #484d35;
+  }
+  body .chest-art > img {
+    object-fit: cover;
+    object-position: 54% center;
+  }
+  body .chest-art:after {
+    background: linear-gradient(90deg, transparent 65%, #141c18);
+  }
+  body .chest-card-copy {
+    padding: 23px;
+  }
+  body .chest-card-copy h2 {
+    font-size: 28px;
+  }
+  body .chest-card-copy > p {
+    font-size: 11px;
+    min-height: 0;
+  }
+  body .chest-guarantee {
+    font-size: 9px;
+    min-height: 0;
+  }
+  body .chest-tier-label {
+    font-size: 7px;
+    top: 15px;
+    left: 14px;
+    max-width: 100%;
+    letter-spacing: 1px;
+  }
+  body .chest-card-copy > .button {
+    font-size: 11px;
+  }
+  body .chest-card-copy details {
+    margin-top: 15px;
+  }
+  body .fair-loot-note {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  body .fair-loot-note small {
+    margin-left: 26px;
+  }
+  body .fair-loot-note > span {
+    flex: 1;
+    font-size: 9px;
+  }
+  body .expedition-banner {
+    flex-wrap: wrap;
+  }
+  body .expedition-banner > .button {
+    margin-left: 47px;
+  }
+  body .toast-container {
+    left: calc(50% + 91px);
+  }
+}
+@media (max-width: 700px) {
+  body .sidebar {
+    transform: translateX(-101%);
+    width: 230px;
+    transition: transform 0.25s;
+  }
+  body .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+  body .sidebar-scrim.visible {
+    position: fixed;
+    inset: 0;
+    background: #030b05b5;
+    backdrop-filter: blur(3px);
+    display: block;
+    z-index: 29;
+  }
+  body .main-shell {
+    margin-left: 0;
+  }
+  body .sidebar .brand-name {
+    font-size: 28px;
+  }
+  body .sidebar .brand-tagline {
+    font-size: 7px;
+  }
+  body .sidebar .nav-item {
+    font-size: 12px;
+    padding: 14px 17px;
+    gap: 15px;
+  }
+  body .sidebar .brand {
+    padding-top: 26px;
+  }
+  body .sidebar .brand-crest {
+    height: 84px;
+  }
+  body .sidebar .profile strong {
+    font-size: 20px;
+  }
+  body .sidebar .profile small {
+    font-size: 10px;
+  }
+  body .sidebar .profile {
+    padding: 20px;
+    gap: 13px;
+  }
+  body .sidebar .avatar {
+    height: 42px;
+    width: 42px;
+  }
+  body .sidebar .sidebar-bottom {
+    padding-top: 22px;
+  }
+  body .mobile-close {
+    display: flex;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 2;
+  }
+  body .menu-button {
+    display: flex;
+    margin-left: -7px;
+    margin-right: 6px;
+  }
+  body .resource-bar {
+    height: 70px;
+    padding: 11px 17px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+  }
+  body .resource {
+    padding: 0 17px;
+    gap: 10px;
+    height: 36px;
+  }
+  body .resource:first-of-type {
+    padding-left: 0;
+  }
+  body .resource strong {
+    font-size: 16px;
+  }
+  body .resource > div > span {
+    font-size: 8px;
+  }
+  body .resource-icon {
+    width: 22px;
+  }
+  body .gold-resource,
+  body .ap-resource {
+    flex: 1;
+  }
+  body .tribute-resource {
+    flex: 0.8;
+  }
+  body .tribute-resource .timer {
+    font-size: 12px;
+  }
+  body .tribute-resource > div > span {
+    font-size: 8px;
+  }
+  body .header-actions {
+    padding-left: 9px;
+  }
+  body .header-actions > .icon-button {
+    display: none;
+  }
+  body .help-button {
+    padding: 10px 3px;
+  }
+  body main {
+    padding: 21px 21px 0;
+  }
+  body .breadcrumb {
+    font-size: 9px;
+    margin-bottom: 20px;
+  }
+  body .local-status {
+    font-size: 8px;
+    gap: 5px;
+  }
+  body .page-intro {
+    margin-bottom: 24px;
+  }
+  body h1 {
+    font-size: 38px;
+    letter-spacing: -0.6px;
+  }
+  body .page-intro p {
+    font-size: 11px;
+    line-height: 1.8;
+    max-width: 450px;
+  }
+  body .realm-scene {
+    height: 392px;
+  }
+  body .realm-caption {
+    left: 25px;
+    bottom: 82px;
+  }
+  body .realm-caption h2 {
+    font-size: 37px;
+  }
+  body .realm-caption p {
+    font-size: 11px;
+  }
+  body .realm-caption .button {
+    font-size: 11px;
+    min-width: 224px;
+  }
+  body .realm-progress {
+    left: 22px;
+    right: 22px;
+  }
+  body .realm-step small {
+    font-size: 8px;
+  }
+  body .overview-primary {
+    gap: 17px;
+  }
+  body .chapter-panel {
+    padding: 23px;
+  }
+  body .chapter-panel h2 {
+    font-size: 28px;
+  }
+  body .chapter-step h3 {
+    font-size: 23px;
+  }
+  body .chapter-step p {
+    font-size: 10px;
+    min-height: 47px;
+  }
+  body .chapter-step .text-link {
+    font-size: 9px;
+  }
+  body .chapter-steps {
+    gap: 18px;
+  }
+  body .chapter-step {
+    padding-left: 18px;
+  }
+  body .chapter-step.complete p {
+    font-size: 10px;
+  }
+  body .stats-band {
+    margin: 17px 0;
+    min-height: 74px;
+  }
+  body .stats-band > div {
+    padding: 0 19px;
+    gap: 12px;
+  }
+  body .stats-band small {
+    font-size: 9px;
+  }
+  body .stats-band strong {
+    font-size: 27px;
+  }
+  body .beyond-panel,
+  body .war-preview {
+    padding: 21px;
+  }
+  body .overview-secondary {
+    gap: 17px;
+  }
+  body .dungeon-preview {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  body .dungeon-preview-image {
+    height: 168px;
+  }
+  body .dungeon-preview-copy h3 {
+    font-size: 27px;
+  }
+  body .war-preview .faction-name {
+    width: 93px;
+    font-size: 10px;
+  }
+  body .war-preview .influence-list {
+    column-gap: 23px;
+  }
+  body .war-preview-footer .text-link {
+    font-size: 11px;
+  }
+  body .war-preview-footer {
+    margin-top: 22px;
+  }
+  body .activity-strip {
+    margin-top: 17px;
+    padding: 17px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  body .activity-strip-title {
+    font-size: 20px;
+  }
+  body .activity-strip p {
+    font-size: 10px;
+    flex-basis: 100%;
+    order: 3;
+    white-space: normal;
+  }
+  body .activity-strip > button {
+    font-size: 10px;
+  }
+  body .app-footer > span:first-child {
+    font-size: 8px;
+  }
+  body .app-footer > span:last-child {
+    font-size: 7px;
+    letter-spacing: 0.5px;
+  }
+  body .app-footer button {
+    font-size: 9px;
+  }
+  body .toast-container {
+    left: 50%;
+    bottom: 18px;
+  }
+  body .toast {
+    max-width: calc(100vw - 32px);
+    font-size: 11px;
+    padding: 12px 14px;
+  }
+  body .page-tabs {
+    gap: 25px;
+  }
+  body .page-tabs > button {
+    font-size: 11px;
+  }
+  body .building-grid {
+    gap: 15px;
+  }
+  body .building-card {
+    padding: 21px;
+  }
+  body .building-card h3 {
+    font-size: 27px;
+  }
+  body .building-card p {
+    font-size: 11px;
+  }
+  body .upgrade-benefits {
+    grid-template-columns: 1fr;
+  }
+  body .upgrade-panel {
+    padding: 24px;
+  }
+  body .upgrade-panel > .button {
+    width: 100%;
+  }
+  body .upgrade-panel > .center-muted {
+    display: block;
+    margin-left: 0;
+  }
+  body .upgrade-benefits > div {
+    font-size: 11px;
+  }
+  body .upgrade-benefits strong {
+    font-size: 12px;
+  }
+  body .troop-panel {
+    padding: 22px;
+  }
+  body .troop-panel-title h2 {
+    font-size: 29px;
+  }
+  body .troop-emblem {
+    height: 80px;
+    width: 65px;
+  }
+  body .troop-emblem > svg {
+    width: 41px;
+  }
+  body .troop-panel-title .letter-label {
+    font-size: 7px;
+  }
+  body .troop-panel-title p {
+    font-size: 10px;
+  }
+  body .troop-stats strong {
+    font-size: 29px;
+  }
+  body .troop-stats span {
+    font-size: 8px;
+  }
+  body .troop-description {
+    font-size: 11px;
+    min-height: 77px;
+  }
+  body .troop-panel > .button {
+    font-size: 11px;
+  }
+  body .hero-profile > .personal-strength {
+    margin-left: 100px;
+  }
+  body .item-tile {
+    padding: 17px;
+  }
+  body .item-tile h3 {
+    font-size: 25px;
+  }
+  body .area-tab strong {
+    font-size: 19px;
+  }
+  body .area-tab small {
+    font-size: 8px;
+  }
+  body .area-tab {
+    padding: 14px 11px;
+  }
+  body .area-number {
+    font-size: 23px;
+  }
+  body .dungeon-scene {
+    min-height: 435px;
+  }
+  body .raid-preparation h2 {
+    font-size: 33px;
+  }
+  body .raid-preparation .section-heading .letter-label {
+    font-size: 10px;
+  }
+  body .loot-pool {
+    padding: 23px;
+  }
+  body .risk-panel {
+    padding: 25px;
+  }
+  body .war-season-hero {
+    min-height: 280px;
+  }
+  body .war-season-hero h2 {
+    font-size: 49px;
+  }
+  body .war-season-hero > div {
+    padding: 29px;
+  }
+  body .war-season-hero p {
+    font-size: 13px;
+  }
+  body .faction-standings h2 {
+    font-size: 29px;
+  }
+  body .opponent-identity strong {
+    font-size: 11px;
+  }
+  body .opponent-identity > div > span {
+    font-size: 9px;
+  }
+  body .opponent-row {
+    grid-template-columns: 1.6fr 0.6fr 120px;
+    gap: 10px 16px;
+  }
+  body .opponent-row > .button {
+    font-size: 10px;
+  }
+  body .opponent-defense {
+    font-size: 12px;
+  }
+  body .opponent-gold {
+    font-size: 11px;
+  }
+  body .opponent-faction {
+    font-size: 9px;
+  }
+  body .trader-welcome h2 {
+    font-size: 30px;
+  }
+  body .trader-welcome p {
+    font-size: 11px;
+  }
+  body .chest-grid {
+    margin-top: 22px;
+  }
+  body .chest-card-copy h2 {
+    font-size: 30px;
+  }
+  body .chest-art {
+    min-height: 243px;
+  }
+  body .chest-card-copy {
+    padding: 24px;
+  }
+  body .chest-card-copy > .button {
+    font-size: 11px;
+    gap: 8px;
+  }
+  body .dialog {
+    max-height: calc(100dvh - 28px);
+    width: calc(100vw - 28px);
+  }
+  body .dialog-heading {
+    padding: 16px 21px;
+  }
+  body .dialog-body {
+    padding: 22px;
+  }
+  body .dialog-heading h2 {
+    font-size: 27px;
+  }
+  body .faction-choice {
+    padding: 18px;
+  }
+  body .faction-choice h3 {
+    font-size: 28px;
+  }
+  body .faction-choice p {
+    font-size: 10px;
+  }
+  body .faction-choice em {
+    font-size: 16px;
+  }
+  body .oath-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  body .oath-footer > .button {
+    width: 100%;
+    font-size: 12px;
+  }
+  body .faction-choice-top {
+    margin-bottom: 12px;
+  }
+  body .faction-choice-sigil svg {
+    width: 38px;
+  }
+  body .faction-bonus {
+    font-size: 10px;
+  }
+  body .battle-result h2 {
+    font-size: 44px;
+  }
+  body .dialog-actions > .button {
+    flex: 1;
+  }
+  body .settings-row p {
+    font-size: 10px;
+  }
+  body .fair-loot-note small {
+    margin-left: 0;
+  }
+}
+@media (max-width: 470px) {
+  body main {
+    padding: 19px 16px 0;
+  }
+  body h1 {
+    font-size: 35px;
+    line-height: 1.05;
+    letter-spacing: -0.5px;
+  }
+  body .page-intro p {
+    font-size: 11px;
+    margin-top: 11px;
+    line-height: 1.7;
+  }
+  body .resource-bar {
+    padding: 10px 13px;
+    height: 68px;
+  }
+  body .resource {
+    padding: 0 14px;
+    gap: 8px;
+  }
+  body .resource strong {
+    font-size: 15px;
+  }
+  body .resource strong em {
+    font-size: 10px;
+  }
+  body .resource-icon {
+    width: 20px;
+  }
+  body .tribute-resource {
+    display: none;
+  }
+  body .header-actions {
+    padding-left: 10px;
+  }
+  body .header-actions > .help-button {
+    width: 23px;
+    padding: 9px 0;
+  }
+  body .menu-button {
+    min-width: 30px;
+    padding: 5px;
+    margin-right: 9px;
+  }
+  body .local-status > svg {
+    display: none;
+  }
+  body .breadcrumb {
+    margin-bottom: 22px;
+  }
+  body .realm-scene {
+    height: 389px;
+  }
+  body .realm-scene > img {
+    object-position: 52% 48%;
+  }
+  body .realm-caption {
+    left: 22px;
+    right: 17px;
+    bottom: 81px;
+  }
+  body .realm-caption h2 {
+    font-size: 34px;
+  }
+  body .realm-caption p {
+    font-size: 10px;
+    gap: 7px;
+  }
+  body .realm-caption .button {
+    min-width: 220px;
+    font-size: 11px;
+    min-height: 43px;
+  }
+  body .explore-link {
+    right: 14px;
+    top: 14px;
+    gap: 8px;
+    font-size: 9px;
+  }
+  body .circle-arrow {
+    width: 31px;
+    height: 31px;
+  }
+  body .realm-progress {
+    left: 15px;
+    right: 15px;
+    bottom: 19px;
+  }
+  body .realm-step small {
+    font-size: 6.5px;
+  }
+  body .realm-step > span {
+    height: 10px;
+    width: 10px;
+  }
+  body .realm-step:before {
+    top: 5px;
+  }
+  body .chapter-panel {
+    padding: 22px;
+  }
+  body .chapter-steps {
+    display: block;
+  }
+  body .chapter-step {
+    display: flex;
+    gap: 16px;
+    padding: 19px 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  body .chapter-step:first-child {
+    padding: 1px 0 19px;
+  }
+  body .chapter-step:last-child {
+    padding-bottom: 0;
+  }
+  body .step-number {
+    width: 34px;
+    height: 34px;
+    margin: 0;
+    font-size: 18px;
+  }
+  body .chapter-step h3 {
+    font-size: 25px;
+  }
+  body .chapter-step p,
+  body .chapter-step.complete p {
+    font-size: 11px;
+    min-height: 0;
+    margin: 6px 0 10px;
+  }
+  body .chapter-step .text-link {
+    font-size: 11px;
+  }
+  body .chapter-step .text-link svg {
+    width: 14px;
+  }
+  body .stats-band > div {
+    padding: 0 12px;
+    gap: 8px;
+  }
+  body .stats-band > div > svg {
+    width: 19px;
+    height: 19px;
+  }
+  body .stats-band strong {
+    font-size: 26px;
+  }
+  body .stats-band small {
+    font-size: 8px;
+    white-space: nowrap;
+  }
+  body .stats-band {
+    min-height: 77px;
+  }
+  body .beyond-panel,
+  body .war-preview {
+    padding: 20px;
+  }
+  body .overview-secondary h2 {
+    font-size: 28px;
+  }
+  body .dungeon-preview {
+    grid-template-columns: 1fr;
+    gap: 17px;
+  }
+  body .dungeon-preview-image {
+    height: 181px;
+  }
+  body .dungeon-preview-image img {
+    object-position: center 51%;
+  }
+  body .dungeon-preview-copy h3 {
+    font-size: 30px;
+  }
+  body .dungeon-preview-copy p {
+    font-size: 11px;
+    margin: 7px 0 15px;
+  }
+  body .stage-label {
+    font-size: 11px;
+    display: inline-block;
+    margin-right: 16px;
+  }
+  body .odds-label {
+    display: inline-flex;
+    font-size: 10px;
+  }
+  body .dungeon-preview-copy .button {
+    max-width: none;
+    margin-top: 19px;
+    font-size: 12px;
+  }
+  body .war-preview .influence-list {
+    display: flex;
+    gap: 15px;
+    margin-top: 22px;
+  }
+  body .war-preview .faction-name {
+    width: 113px;
+    font-size: 11px;
+  }
+  body .war-preview .influence-track {
+    height: 6px;
+  }
+  body .war-preview .influence-row {
+    gap: 12px;
+  }
+  body .war-preview-footer .simulation-label {
+    font-size: 8px;
+  }
+  body .war-preview-footer .text-link {
+    font-size: 10px;
+  }
+  body .activity-strip-title {
+    font-size: 20px;
+  }
+  body .activity-strip p {
+    font-size: 10px;
+    line-height: 1.8;
+  }
+  body .app-footer {
+    padding: 23px 0;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  body .app-footer > span:last-child {
+    width: 100%;
+    text-align: center;
+    padding-top: 5px;
+    font-size: 7px;
+  }
+  body .app-footer button {
+    margin-left: auto;
+  }
+  body .page-tabs {
+    gap: 24px;
+    margin-bottom: 21px;
+  }
+  body .page-tabs > button {
+    font-size: 10px;
+    gap: 7px;
+    padding-bottom: 13px;
+  }
+  body .building-grid {
+    grid-template-columns: 1fr;
+  }
+  body .building-card {
+    padding: 24px;
+  }
+  body .building-card p {
+    min-height: 0;
+    font-size: 12px;
+  }
+  body .building-card h3 {
+    font-size: 29px;
+  }
+  body .building-benefit {
+    font-size: 11px;
+    margin: 20px 0;
+  }
+  body .building-status {
+    font-size: 10px;
+  }
+  body .building-card .button {
+    font-size: 12px;
+  }
+  body .building-card-top {
+    margin-bottom: 17px;
+  }
+  body .buildings-heading h2 {
+    font-size: 28px;
+    max-width: 240px;
+  }
+  body .buildings-heading .subtle-label {
+    font-size: 8px;
+    white-space: nowrap;
+  }
+  body .settlement-scene .realm-caption h2 {
+    font-size: 43px;
+  }
+  body .settlement-scene .realm-caption p {
+    display: block;
+    max-width: 240px;
+    font-size: 11px;
+    line-height: 1.8;
+  }
+  body .upgrade-panel h2 {
+    font-size: 32px;
+  }
+  body .map-pin {
+    font-size: 7px;
+    gap: 4px;
+    padding: 6px;
+  }
+  body .map-pin > svg {
+    width: 14px;
+  }
+  body .army-banner {
+    padding: 22px;
+  }
+  body .army-banner h2 {
+    font-size: 29px;
+  }
+  body .army-banner p {
+    font-size: 11px;
+    line-height: 1.8;
+  }
+  body .army-banner > .button {
+    width: 100%;
+    font-size: 11px;
+  }
+  body .unlock-banner {
+    padding: 19px;
+    gap: 13px;
+  }
+  body .unlock-banner h3 {
+    font-size: 25px;
+  }
+  body .unlock-banner p {
+    font-size: 10px;
+  }
+  body .unlock-banner > svg {
+    width: 24px;
+  }
+  body .unlock-banner > .button {
+    margin-left: 0;
+    width: 100%;
+    font-size: 11px;
+  }
+  body .recruit-toolbar {
+    align-items: flex-start;
+    gap: 15px;
+  }
+  body .recruit-toolbar h2 {
+    font-size: 28px;
+    max-width: 160px;
+  }
+  body .recruit-toolbar label {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    font-size: 9px;
+  }
+  body .recruit-toolbar select {
+    font-size: 10px;
+    min-width: 104px;
+    padding: 9px;
+  }
+  body .troop-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  body .troop-panel {
+    padding: 24px;
+  }
+  body .troop-panel-title {
+    gap: 20px;
+  }
+  body .troop-panel-title h2 {
+    font-size: 33px;
+  }
+  body .troop-panel-title .letter-label {
+    font-size: 8px;
+  }
+  body .troop-stats strong {
+    font-size: 33px;
+  }
+  body .troop-stats span {
+    font-size: 9px;
+  }
+  body .troop-stats > div {
+    padding-left: 17px;
+  }
+  body .troop-description {
+    min-height: 0;
+    margin-bottom: 21px;
+    line-height: 1.8;
+  }
+  body .troop-panel > .button {
+    font-size: 12px;
+  }
+  body .troop-secondary-actions {
+    flex-direction: row;
+    gap: 8px;
+  }
+  body .troop-secondary-actions > button {
+    font-size: 8px;
+  }
+  body .blacksmith-banner {
+    padding: 21px;
+  }
+  body .blacksmith-banner h3 {
+    font-size: 25px;
+  }
+  body .blacksmith-banner > .button,
+  body .blacksmith-banner > .positive {
+    margin-left: 0;
+    width: 100%;
+    font-size: 11px;
+    text-align: center;
+  }
+  body .hero-profile {
+    padding: 23px;
+    gap: 17px;
+  }
+  body .hero-profile .hero-sigil {
+    width: 64px;
+    height: 84px;
+  }
+  body .hero-sigil > svg {
+    width: 48px;
+  }
+  body .hero-profile > div:not(.hero-sigil):not(.personal-strength) {
+    flex: 1;
+  }
+  body .hero-profile .letter-label {
+    font-size: 6px;
+    letter-spacing: 1px;
+  }
+  body .hero-profile h2 {
+    font-size: 32px;
+  }
+  body .hero-profile p {
+    font-size: 10px;
+  }
+  body .hero-stat-line {
+    font-size: 9px;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 13px;
+  }
+  body .hero-stat-line > span:last-child {
+    flex-basis: 100%;
+    font-size: 8px;
+  }
+  body .hero-profile > .personal-strength {
+    margin-left: 0;
+    flex-basis: 100%;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  body .hero-profile .personal-strength strong {
+    font-size: 40px;
+  }
+  body .hero-profile .personal-strength span {
+    font-size: 11px;
+  }
+  body .inventory-section > .section-heading h2 {
+    font-size: 27px;
+  }
+  body .inventory-section > .section-heading > .subtle-label {
+    font-size: 8px;
+    white-space: nowrap;
+  }
+  body .filter-tabs {
+    gap: 4px;
+  }
+  body .filter-tabs > button {
+    font-size: 10px;
+    padding: 9px 10px;
+  }
+  body .inventory-grid {
+    gap: 11px;
+  }
+  body .item-tile {
+    padding: 13px 12px;
+  }
+  body .item-art {
+    height: 79px;
+    margin: 7px 0;
+  }
+  body .item-tile h3 {
+    font-size: 22px;
+  }
+  body .item-tile p {
+    font-size: 9px;
+  }
+  body .item-actions {
+    gap: 3px;
+  }
+  body .item-actions > .button {
+    font-size: 9px;
+    padding: 8px 7px;
+    gap: 4px;
+  }
+  body .item-actions > .button > svg {
+    width: 11px;
+  }
+  body .item-tile-top {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  body .rarity-label {
+    font-size: 7px;
+  }
+  body .equipped-tag {
+    font-size: 7px;
+  }
+  body .dungeon-area-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  body .area-tab {
+    padding: 14px 17px;
+    gap: 15px;
+  }
+  body .area-number {
+    font-size: 25px;
+    width: 24px;
+  }
+  body .area-tab strong {
+    font-size: 23px;
+  }
+  body .area-tab small {
+    font-size: 9px;
+    margin-top: 3px;
+  }
+  body .area-tab > svg:last-child {
+    display: block;
+  }
+  body .dungeon-scene {
+    min-height: 416px;
+  }
+  body .dungeon-scene-caption {
+    left: 23px;
+    right: 23px;
+    bottom: 24px;
+  }
+  body .dungeon-scene-caption h2 {
+    font-size: 40px;
+  }
+  body .dungeon-scene-caption > p {
+    font-size: 10px;
+    line-height: 1.9;
+    margin-bottom: 25px;
+  }
+  body .region-label {
+    font-size: 7px;
+    letter-spacing: 1.5px;
+  }
+  body .stage-chip {
+    font-size: 6px;
+    padding: 6px 7px;
+  }
+  body .stage-path button > span {
+    width: 33px;
+    height: 33px;
+  }
+  body .stage-path button:before {
+    top: 16px;
+  }
+  body .stage-path button small {
+    font-size: 7px;
+  }
+  body .raid-preparation {
+    padding: 24px;
+  }
+  body .raid-preparation h2 {
+    font-size: 32px;
+  }
+  body .raid-mode > button {
+    font-size: 10px;
+    padding: 11px 5px;
+    gap: 6px;
+  }
+  body .mode-description {
+    font-size: 10px;
+    line-height: 1.9;
+  }
+  body .forecast-title,
+  body .forecast-title > strong {
+    font-size: 10px;
+  }
+  body .forecast-range {
+    font-size: 8px;
+  }
+  body .raid-rewards {
+    font-size: 10px;
+  }
+  body .raid-rewards strong {
+    font-size: 12px;
+  }
+  body .raid-preparation > .button {
+    font-size: 12px;
+  }
+  body .loot-pool .section-heading {
+    align-items: flex-start;
+  }
+  body .loot-pool h2 {
+    font-size: 28px;
+    max-width: 190px;
+  }
+  body .loot-pool .subtle-label {
+    font-size: 8px;
+    margin-top: 5px;
+  }
+  body .loot-pool-row {
+    padding-top: 10px;
+    gap: 6px;
+  }
+  body .loot-pool-row strong {
+    font-size: 9px;
+  }
+  body .loot-pool-row small {
+    font-size: 8px;
+    line-height: 1.6;
+    max-width: 85px;
+  }
+  body .loot-pool-row svg {
+    width: 21px;
+  }
+  body .loot-pool details summary {
+    font-size: 10px;
+  }
+  body .risk-panel h3 {
+    font-size: 27px;
+  }
+  body .expedition-banner {
+    padding: 21px;
+    gap: 13px;
+  }
+  body .expedition-banner h3 {
+    font-size: 25px;
+  }
+  body .expedition-banner p {
+    font-size: 10px;
+  }
+  body .expedition-banner > div {
+    flex-basis: 70%;
+  }
+  body .expedition-banner > .button {
+    margin-left: 0;
+    width: 100%;
+  }
+  body .war-season-hero h2 {
+    font-size: 47px;
+  }
+  body .war-season-hero > div {
+    padding: 27px;
+  }
+  body .faction-standings {
+    padding: 24px;
+  }
+  body .faction-standings .influence-list {
+    display: flex;
+    gap: 17px;
+  }
+  body .faction-standings .faction-name {
+    width: 115px;
+    font-size: 11px;
+  }
+  body .faction-standings .influence-row {
+    gap: 10px;
+  }
+  body .faction-standings .influence-track {
+    height: 6px;
+  }
+  body .faction-standings .influence-percent {
+    font-size: 10px;
+  }
+  body .allegiance-bar {
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 22px;
+  }
+  body .allegiance-bar h3 {
+    font-size: 28px;
+  }
+  body .allegiance-bar .letter-label {
+    font-size: 7px;
+  }
+  body .allegiance-bar p {
+    font-size: 10px;
+  }
+  body .allegiance-emblem {
+    width: 39px;
+  }
+  body .allegiance-bar > div {
+    flex-basis: 70%;
+  }
+  body .allegiance-bar > .button {
+    width: 100%;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  body .allegiance-bar .renown-total {
+    flex-basis: 100%;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    max-width: none;
+    padding-left: 0;
+    padding-top: 14px;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+  body .renown-total strong {
+    font-size: 29px;
+  }
+  body .renown-total span {
+    flex-basis: auto;
+    font-size: 10px;
+    margin-left: auto;
+  }
+  body .battlefield {
+    padding: 22px;
+  }
+  body .battlefield h2 {
+    font-size: 28px;
+  }
+  body .battlefield .section-heading > .simulation-label {
+    font-size: 6px;
+    min-width: 68px;
+  }
+  body .battlefield > p {
+    font-size: 10px;
+  }
+  body .opponent-row {
+    display: grid;
+    grid-template-columns: 1fr 86px;
+    gap: 10px 12px;
+    padding: 22px 0;
+  }
+  body .opponent-identity {
+    grid-column: 1;
+    grid-row: 1;
+    gap: 10px;
+  }
+  body .opponent-identity strong {
+    font-size: 11px;
+  }
+  body .opponent-identity > div > span {
+    font-size: 8px;
+  }
+  body .opponent-faction {
+    grid-row: 2;
+    grid-column: 1;
+    padding-left: 42px;
+  }
+  body .opponent-defense {
+    grid-column: 2;
+    grid-row: 1;
+    justify-content: flex-end;
+    font-size: 12px;
+  }
+  body .opponent-gold {
+    grid-row: 2;
+    grid-column: 2;
+    justify-self: end;
+  }
+  body .opponent-row > .button {
+    grid-row: 3;
+    grid-column: 1 / 3;
+    font-size: 11px;
+    min-height: 38px;
+    margin-top: 3px;
+  }
+  body .season-rules,
+  body .season-rewards {
+    padding: 25px;
+  }
+  body .score-breakdown span {
+    font-size: 8px;
+    line-height: 1.6;
+    padding: 0 4px;
+  }
+  body .score-breakdown strong {
+    font-size: 34px;
+  }
+  body .season-rules h2,
+  body .season-rewards h2 {
+    font-size: 32px;
+  }
+  body .season-rules p {
+    font-size: 11px;
+  }
+  body .war-donation h2 {
+    font-size: 29px;
+  }
+  body .war-donation p {
+    font-size: 10px;
+  }
+  body .war-donation > .button {
+    width: 100%;
+  }
+  body .trader-welcome {
+    padding: 23px;
+    gap: 16px;
+  }
+  body .trader-portrait {
+    width: 62px;
+    height: 83px;
+  }
+  body .trader-portrait > svg {
+    width: 32px;
+  }
+  body .trader-welcome h2 {
+    font-size: 29px;
+    line-height: 1.1;
+  }
+  body .trader-welcome p {
+    font-size: 10px;
+  }
+  body .trader-welcome > div > span {
+    font-size: 6px;
+    letter-spacing: 1px;
+  }
+  body .trader-welcome .pity-counter {
+    gap: 7px;
+    flex-wrap: wrap;
+    padding-top: 20px;
+  }
+  body .trader-welcome .pity-counter > span {
+    font-size: 9px;
+  }
+  body .pity-dots {
+    gap: 3px;
+    margin-left: auto;
+  }
+  body .pity-dots > span {
+    width: 6px;
+  }
+  body .pity-counter > svg {
+    width: 16px;
+    margin-right: 1px;
+  }
+  body .chest-grid {
+    gap: 20px;
+  }
+  body .chest-card {
+    display: block;
+  }
+  body .chest-art {
+    height: 219px;
+    min-height: 0;
+    border: 0;
+  }
+  body .chest-art > img {
+    object-position: center 52%;
+  }
+  body .chest-art:after {
+    background: linear-gradient(transparent 65%, #141c18);
+  }
+  body .chest-tier-label {
+    font-size: 8px;
+    top: 17px;
+    left: 18px;
+    padding: 5px 7px;
+  }
+  body .chest-card-copy {
+    padding: 21px 24px 24px;
+  }
+  body .chest-card-copy h2 {
+    font-size: 32px;
+  }
+  body .chest-card-copy > p {
+    font-size: 11px;
+    margin-top: 10px;
+  }
+  body .chest-guarantee {
+    font-size: 10px;
+    margin-bottom: 18px;
+  }
+  body .chest-card-copy > .button {
+    font-size: 12px;
+  }
+  body .chest-card-copy details {
+    margin-top: 18px;
+  }
+  body .fair-loot-note > span {
+    font-size: 9px;
+    line-height: 1.8;
+  }
+  body .fair-loot-note small {
+    margin-left: 26px;
+  }
+  body .dialog-heading {
+    padding: 15px 17px;
+    gap: 8px;
+  }
+  body .dialog-heading h2 {
+    font-size: 26px;
+    line-height: 1.1;
+  }
+  body .dialog-heading > .icon-button {
+    min-width: 34px;
+    flex-shrink: 0;
+  }
+  body .dialog-body {
+    padding: 20px;
+  }
+  body .dialog-lead {
+    font-size: 11px;
+  }
+  body .faction-options {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+  body .faction-choice {
+    padding: 20px;
+  }
+  body .faction-choice h3 {
+    font-size: 30px;
+  }
+  body .faction-choice p {
+    font-size: 11px;
+    max-width: none;
+  }
+  body .faction-choice-top {
+    margin-bottom: 9px;
+  }
+  body .faction-choice-sigil {
+    height: 39px;
+  }
+  body .faction-bonus {
+    font-size: 11px;
+  }
+  body .oath-footer p {
+    font-size: 10px;
+  }
+  body .battle-report-scene {
+    height: 237px;
+  }
+  body .battle-result h2 {
+    font-size: 41px;
+  }
+  body .battle-result p {
+    font-size: 21px;
+  }
+  body .battle-totals strong {
+    font-size: 28px;
+  }
+  body .battle-totals small {
+    font-size: 7px;
+    line-height: 1.6;
+  }
+  body .victory-loot {
+    gap: 12px;
+    font-size: 10px;
+    flex-wrap: wrap;
+  }
+  body .victory-loot > span:last-child {
+    font-size: 9px;
+  }
+  body .victory-loot > span > svg {
+    width: 15px;
+  }
+  body .battle-log > li {
+    font-size: 10px;
+    gap: 11px;
+  }
+  body .battle-items {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  body .battle-items .item-tile h3 {
+    font-size: 21px;
+  }
+  body .dialog-actions {
+    gap: 10px;
+    flex-direction: column;
+  }
+  body .dialog-actions > .button {
+    width: 100%;
+    font-size: 11px;
+  }
+  body .chest-reveal {
+    height: 227px;
+  }
+  body .chest-dialog .item-tile h3 {
+    font-size: 35px;
+  }
+  body .chest-dialog .dialog-body {
+    padding-top: 9px;
+  }
+  body .settings-row {
+    gap: 11px;
+  }
+  body .settings-row > svg {
+    width: 18px;
+  }
+  body .settings-row h3 {
+    font-size: 22px;
+  }
+  body .settings-row > .button {
+    font-size: 9px;
+    padding: 9px;
+  }
+  body .demo-controls {
+    padding: 19px;
+  }
+  body .demo-controls h3 {
+    font-size: 26px;
+  }
+  body .demo-controls p {
+    font-size: 10px;
+  }
+  body .reset-area label {
+    font-size: 10px;
+    line-height: 1.7;
+  }
+  body .guide-row {
+    gap: 14px;
+  }
+  body .guide-row h3 {
+    font-size: 25px;
+  }
+  body .guide-row p {
+    font-size: 10px;
+    line-height: 1.9;
+  }
+  body .guide-row > svg {
+    width: 20px;
+  }
+  body .note {
+    font-size: 10px;
+    line-height: 1.8;
+  }
+  body .toast-container {
+    max-width: calc(100vw - 24px);
+  }
+  body .toast {
+    font-size: 10px;
+    gap: 8px;
+  }
+}
+@media (max-width: 700px) {
+  body .sidebar {
+    visibility: hidden;
+  }
+  body .sidebar.mobile-open {
+    visibility: visible;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

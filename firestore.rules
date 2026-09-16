@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Private realms contain the game, inventory, combat history and revision.
+    // Only authenticated callable functions (Admin SDK) may mutate any game data.
+    function isAuthenticated() { return request.auth != null; }
+    function isOwner(uid) { return isAuthenticated() && request.auth.uid == uid; }
+    // Structural helpers are not write grants. Realm identity is its immutable
+    // document path; no caller-supplied uid field is accepted by the schema.
+    function uidUnchanged() {
+      return !('uid' in request.resource.data) || request.resource.data.uid == request.auth.uid;
+    }
+    function uidNotModified() {
+      return !request.resource.data.diff(resource.data).affectedKeys().hasAny(['uid']);
+    }
+    function isValidRealm(data) {
+      return data.keys().hasAll(['game', 'revision', 'enlisted', 'shieldUntil', 'lastActionAt'])
+        && data.keys().hasOnly(['game', 'revision', 'enlisted', 'shieldUntil', 'lastActionAt'])
+        && data.game is map && data.revision is int && data.revision >= 0
+        && data.enlisted is bool && data.shieldUntil is int && data.shieldUntil >= 0
+        && data.lastActionAt is int && data.lastActionAt >= 0;
+    }
+    match /realms/{uid} {
+      allow get: if isOwner(uid);
+      allow list, create, update, delete: if false;
+      match /{nested=**} { allow read, write: if false; }
+    }
+    // Public projection: chosen commander name, faction, tier, defense, plunder,
+    // PvP enlistment/shield and renown. No email, inventory, gold total or receipts.
+    match /publicRealms/{uid} {
+      allow get: if isAuthenticated();
+      allow list: if isAuthenticated() && request.query.limit != null && request.query.limit <= 50;
+      allow write: if false;
+    }
+    match /campaigns/{campaign} {
+      allow get: if isAuthenticated();
+      allow list, write: if false;
+    }
+    match /{document=**} { allow read, write: if false; }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "publicRealms",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "enlisted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "level",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "realms",
+      "fieldPath": "game",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "receipts",
+      "fieldPath": "response",
+      "indexes": []
+    }
+  ]
+}

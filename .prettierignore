@@ -1,0 +1,5 @@
+dist
+node_modules
+design/source-art
+design/overview-concept.png
+package-lock.json

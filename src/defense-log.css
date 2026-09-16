@@ -1,0 +1,73 @@
+.defense-notice {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  margin-bottom: 22px;
+  border: 1px solid #394535;
+  border-radius: 6px;
+  color: var(--muted);
+}
+.defense-notice.has-attacks {
+  background: #30261b;
+  border-color: #977445;
+  color: #eee4ca;
+}
+.defense-notice > div {
+  flex: 1;
+  min-width: 180px;
+}
+.defense-notice strong,
+.defense-notice span {
+  display: block;
+}
+.defense-notice span {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.defense-report {
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px solid #394535;
+  border-radius: 6px;
+}
+.defense-report header {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.defense-report h3 {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.defense-report small {
+  color: var(--muted);
+}
+.defense-report dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.defense-report dt {
+  font-size: 12px;
+  color: var(--muted);
+}
+.defense-report dd {
+  margin: 4px 0 0;
+  font-size: 20px;
+  color: #d3b574;
+}
+.defense-report p,
+.settlement-value {
+  font-size: 13px;
+  line-height: 1.6;
+}
+.settlement-value {
+  padding: 12px;
+  background: #17221b;
+  border: 1px solid #394535;
+  border-radius: 6px;
+}
