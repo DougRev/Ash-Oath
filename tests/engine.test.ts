@@ -1,4 +1,10 @@
-import { bankCapacity, bankRate, seasonKey } from '../src/game/progression';
+import {
+  bankCapacity,
+  bankRate,
+  MAX_BARRACKS,
+  MAX_COMBAT_UPGRADE,
+  seasonKey,
+} from '../src/game/progression';
 import {
   petXpFor,
   companionBonus,
@@ -779,16 +785,79 @@ test('barracks expansion increases capacity beyond Citadel and remains capped an
   s.gold = 10_000_000;
   s.buildings.armory = true;
   const starting = s.gold;
-  for (let i = 0; i < 20; i++) s = applyAction(s, { type: 'upgradeBarracks' }, NOW);
-  assert.equal(stats(s).capacity, 560);
+  for (let i = 0; i < MAX_BARRACKS; i++) s = applyAction(s, { type: 'upgradeBarracks' }, NOW);
+  assert.equal(stats(s).capacity, 160 * 2 ** MAX_BARRACKS);
   assert.ok(s.gold < starting);
   assert.throws(() => applyAction(s, { type: 'upgradeBarracks' }, NOW), /fully upgraded/);
   s = applyAction(s, { type: 'recruit', role: 'offense', count: 200 }, NOW);
   assert.ok(validSave(s));
+  s.troops.offense = stats(s).capacity - s.troops.defense;
   assert.throws(
-    () => applyAction(s, { type: 'recruit', role: 'offense', count: 560 }, NOW),
+    () => applyAction(s, { type: 'recruit', role: 'offense', count: 1 }, NOW),
     /full/,
   );
+});
+
+test('war doctrine and fortifications provide paid permanent percentage bonuses', () => {
+  let s = explorer();
+  s.gold = 10_000_000;
+  s.buildings.armory = true;
+  s.buildings.watchtower = true;
+  const base = stats(s);
+  s = applyAction(s, { type: 'upgradeOffense' }, NOW);
+  assert.equal(s.offenseLevel, 1);
+  assert.equal(stats(s).attack, Math.floor(base.attack * 1.05));
+  s = applyAction(s, { type: 'upgradeDefense' }, NOW);
+  assert.equal(s.defenseLevel, 1);
+  assert.ok(stats(s).defense > base.defense);
+  for (let i = 1; i < MAX_COMBAT_UPGRADE; i++)
+    s = applyAction(s, { type: 'upgradeOffense' }, NOW);
+  assert.throws(() => applyAction(s, { type: 'upgradeOffense' }, NOW), /fully upgraded/);
+  assert.ok(validSave(s));
+});
+
+test('expanded equipment slots allow complete armor sets and activate set bonuses', () => {
+  const s = explorer();
+  const before = stats(s);
+  const slots = ['helm', 'chest', 'greaves', 'boots', 'shield'] as const;
+  s.inventory = s.inventory.filter((item) => item.kind !== 'armor');
+  s.equipped = s.equipped.filter((id) => s.inventory.some((item) => item.id === id));
+  for (const [index, slot] of slots.entries()) {
+    const item: Item = {
+      id: `r${100 + index}`,
+      name: `Briar ${slot}`,
+      kind: 'armor',
+      rarity: 'rare',
+      power: 20,
+      value: 160,
+      slot,
+      set: 'briarwarden',
+    };
+    s.inventory.push(item);
+    s.equipped.push(item.id);
+  }
+  const after = stats(s);
+  assert.equal(s.equipped.length, 6);
+  assert.ok(after.heroDefense >= before.heroDefense + 95);
+  assert.ok(after.defense > before.defense);
+  assert.ok(after.personal > before.personal);
+  assert.ok(validSave(s));
+});
+
+test('legacy saves migrate to doubling barracks, expanded dungeons and item slots', () => {
+  const legacy = newGame(NOW) as GameState & { progressionVersion?: 2 };
+  delete legacy.progressionVersion;
+  legacy.barracksLevel = 20;
+  legacy.cleared = [5, 5, 5];
+  delete legacy.inventory[0].slot;
+  delete legacy.inventory[1].slot;
+  const migrated = accrue(legacy, NOW);
+  assert.equal(migrated.progressionVersion, 2);
+  assert.equal(migrated.barracksLevel, 5);
+  assert.equal(migrated.cleared.length, 6);
+  assert.equal(migrated.inventory[0].slot, 'weapon');
+  assert.equal(migrated.inventory[1].slot, 'chest');
+  assert.ok(validSave(migrated));
 });
 
 test('bank interest is fractional, bounded, retry safe and identical across tick batching', () => {

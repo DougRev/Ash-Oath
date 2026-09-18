@@ -64,7 +64,7 @@ export function Bank() {
             >
               {bankLevel(game) >= MAX_BANK
                 ? 'Fully upgraded'
-                : `Upgrade bank · ${format(bankUpgradeCost(game))} gold`}
+                : `Double capacity to ${format(bankCapacity(game) * 2)} · ${format(bankUpgradeCost(game))} gold`}
             </Button>
           </div>
           <div className="bank-balances">

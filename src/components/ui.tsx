@@ -20,7 +20,8 @@ import {
   Zap,
 } from 'lucide-react';
 import type { FactionId, Item } from '../game/types';
-import { format } from '../game/engine';
+import { ARMOR_SET_MEDIA, ARMOR_SETS } from '../game/data';
+import { equipmentSlot, format } from '../game/engine';
 
 export function Button({
   children,
@@ -121,6 +122,10 @@ export function ItemTile({
   comparison?: number;
   current?: Item[];
 }) {
+  const slot = equipmentSlot(item);
+  const set = item.set ? ARMOR_SETS.find((candidate) => candidate.id === item.set) : undefined;
+  const art =
+    item.set && slot && slot !== 'weapon' ? ARMOR_SET_MEDIA[item.set]?.[slot] : undefined;
   const stat =
     item.kind === 'weapon'
       ? 'hero attack'
@@ -142,7 +147,9 @@ export function ItemTile({
       </div>
       <div className="item-art">
         <>
-          {item.kind === 'pet' ? (
+          {art ? (
+            <img className="gear-portrait" src={art} alt={item.name} loading="lazy" />
+          ) : item.kind === 'pet' ? (
             <img
               className="companion-portrait"
               src={petPortrait(item)}
@@ -155,6 +162,11 @@ export function ItemTile({
         </>
       </div>
       <h3>{item.name}</h3>
+      {slot ? (
+        <span className="item-slot-label">
+          {slot === 'weapon' ? 'Weapon' : slot} {set ? `· ${set.name}` : ''}
+        </span>
+      ) : null}
       <p>
         +
         {item.kind === 'pet'

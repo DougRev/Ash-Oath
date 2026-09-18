@@ -1612,7 +1612,7 @@ main {
 }
 .loadout-summary {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   border: 1px solid var(--line);
   background: #121a15;
   margin-top: 18px;
@@ -1623,10 +1623,17 @@ main {
   gap: 14px;
   padding: 22px;
   border-left: 1px solid var(--line);
+  border-top: 1px solid var(--line);
   color: var(--gold);
 }
 .loadout-summary > div:first-child {
-  border: 0;
+  border-left: 0;
+}
+.loadout-summary > div:nth-child(-n + 3) {
+  border-top: 0;
+}
+.loadout-summary > div:nth-child(3n + 1) {
+  border-left: 0;
 }
 .loadout-summary small {
   font-size: 9px;
@@ -1730,6 +1737,93 @@ main {
 }
 .item-art > svg {
   filter: drop-shadow(0 4px 9px #0009);
+}
+.gear-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 9px 12px #0008);
+}
+.item-slot-label {
+  display: block;
+  margin-top: 7px;
+  color: var(--dim);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.armor-set-progress {
+  margin: 24px 0 8px;
+}
+.armor-set-progress .section-heading {
+  align-items: end;
+}
+.armor-set-progress .section-heading p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.armor-set-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.armor-set-grid article {
+  padding: 20px;
+  background: linear-gradient(145deg, #16211a, #101713);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.armor-set-grid article > span {
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.armor-set-grid h3 {
+  margin: 7px 0 2px;
+  color: var(--text);
+  font-size: 23px;
+}
+.armor-set-grid article > small {
+  color: var(--dim);
+  font-size: 10px;
+}
+.armor-set-grid ul {
+  display: grid;
+  gap: 7px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.armor-set-grid li {
+  color: #7f8c7d;
+  font-size: 11px;
+}
+.armor-set-grid li strong {
+  margin-right: 4px;
+}
+.armor-set-grid li.active {
+  color: #d9c486;
+}
+@media (max-width: 900px) {
+  .armor-set-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (min-width: 701px) and (max-width: 1120px) {
+  body .loadout-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  body .loadout-summary > div {
+    border-left: 1px solid var(--line);
+  }
+  body .loadout-summary > div:nth-child(odd) {
+    border-left: 0;
+  }
+  body .loadout-summary > div:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
 }
 .item-tile h3 {
   font-size: 23px;
@@ -1853,6 +1947,49 @@ main {
 .dungeon-scene > img {
   position: absolute;
   object-position: 63% 50%;
+}
+.dungeon-scene-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 68% 28%, color-mix(in srgb, var(--dungeon-glow) 42%, transparent), transparent 28%),
+    radial-gradient(circle at 24% 62%, color-mix(in srgb, var(--dungeon-glow) 20%, transparent), transparent 32%),
+    linear-gradient(145deg, var(--dungeon-deep), #07100c 74%);
+}
+.dungeon-scene-placeholder::before,
+.dungeon-scene-placeholder::after {
+  content: '';
+  position: absolute;
+  width: 62%;
+  height: 62%;
+  border: 1px solid color-mix(in srgb, var(--dungeon-glow) 36%, transparent);
+  transform: rotate(45deg);
+  box-shadow: 0 0 80px color-mix(in srgb, var(--dungeon-glow) 12%, transparent);
+}
+.dungeon-scene-placeholder::after {
+  width: 38%;
+  height: 38%;
+  transform: rotate(45deg) translate(22%, -18%);
+}
+.dungeon-scene-placeholder span {
+  font: 600 150px/1 'Cormorant Garamond', serif;
+  color: color-mix(in srgb, var(--dungeon-glow) 13%, transparent);
+  letter-spacing: -0.08em;
+}
+.dungeon-scene.frost {
+  --dungeon-deep: #11222b;
+  --dungeon-glow: #8fd2e6;
+}
+.dungeon-scene.sunken {
+  --dungeon-deep: #082421;
+  --dungeon-glow: #4dbeb4;
+}
+.dungeon-scene.starfall {
+  --dungeon-deep: #17152e;
+  --dungeon-glow: #b69cff;
 }
 .dungeon-scene:after {
   content: '';

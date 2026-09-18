@@ -6,6 +6,8 @@ export type Tactic = 'balanced' | 'aggressive' | 'guarded';
 export type UnitWeapon = 'militia' | 'spear' | 'longbow' | 'halberd';
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
 export type ItemKind = 'weapon' | 'armor' | 'rune' | 'pet';
+export type EquipmentSlot = 'weapon' | 'helm' | 'chest' | 'greaves' | 'boots' | 'shield';
+export type ArmorSetId = 'briarwarden' | 'oathbound' | 'emberforged';
 export interface Item {
   id: string;
   name: string;
@@ -13,6 +15,8 @@ export interface Item {
   rarity: Rarity;
   power: number;
   value: number;
+  slot?: EquipmentSlot;
+  set?: ArmorSetId;
   quality?: number;
   ability?: 'ferocity' | 'guardian' | 'scavenger';
   abilityRoll?: number;
@@ -91,6 +95,9 @@ export interface GameState {
   bankLevel?: number;
   bankInterestRemainder?: number;
   barracksLevel?: number;
+  progressionVersion?: 2;
+  offenseLevel?: number;
+  defenseLevel?: number;
   factionChangedSeason?: number;
   rivalRaids?: { day: number; wins: number; last: Record<string, number> };
   level: number;
@@ -120,6 +127,8 @@ export type Action =
   | { type: 'readDefenseReports'; through: number }
   | { type: 'upgradeBarracks' }
   | { type: 'upgradeBank' }
+  | { type: 'upgradeOffense' }
+  | { type: 'upgradeDefense' }
   | { type: 'raidRival'; rival: string; tactic: Tactic }
   | { type: 'bank'; direction: 'deposit' | 'withdraw'; amount: number }
   | { type: 'enlist'; enabled: boolean }

@@ -1,4 +1,5 @@
 import { acceptableName } from '../../src/game/names';
+import { DUNGEONS } from '../../src/game/data';
 import { z } from 'zod';
 
 const role = z.enum(['offense', 'defense']);
@@ -14,6 +15,8 @@ export const actionSchema = z.discriminatedUnion('type', [
     .strict(),
   z.object({ type: z.literal('upgradeBarracks') }).strict(),
   z.object({ type: z.literal('upgradeBank') }).strict(),
+  z.object({ type: z.literal('upgradeOffense') }).strict(),
+  z.object({ type: z.literal('upgradeDefense') }).strict(),
   z
     .object({ type: z.literal('raidRival'), rival: z.string().regex(/^ai-[0-5]-[0-2]$/), tactic })
     .strict(),
@@ -66,7 +69,7 @@ export const actionSchema = z.discriminatedUnion('type', [
     .object({
       type: z.literal('fight'),
       mode: z.enum(['army', 'personal']),
-      dungeon: z.number().int().min(0).max(2),
+      dungeon: z.number().int().min(0).max(DUNGEONS.length - 1),
       stage: z.number().int().min(1).max(5),
       tactic,
       troops: count.optional(),

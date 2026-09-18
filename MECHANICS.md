@@ -42,7 +42,7 @@ Existing saves migrate on their next game action. Current weapon kits are preser
 
 ## Dungeon deployment and progression
 
-There are three regions, each with five stages. Clear a stage to open the next; kill the boss to open the next region. Cleared stages remain farmable.
+There are six regions, each with five stages. Clear a stage to open the next; kill the boss to open the next region. Cleared stages remain farmable. The final three regions currently use code-native atmosphere while their art is produced.
 
 Choose any available number of offensive soldiers before departure. For example, with 100 attackers you can deploy 20 and leave 80 safe at home. Only that party contributes army strength and takes casualties. Equipment is drawn from the role's available kits, up to one per deployed soldier.
 
@@ -63,7 +63,7 @@ A matching formation adds 20% strength and multiplies casualties by 0.75. Enemy 
 
 The server applies a uniformly random 0.85–1.15 battle roll. Victory occurs when final party strength meets enemy endurance. The forecast uses this same formula and selected troop count.
 
-Personal strength uses 65% of the selected party's army strength, plus twice the combined character attack and defense, with equipped bonuses. Hero attack starts at 20 plus weapon power; defense starts at 10 plus armor power. Character equipment does not risk loss on army-only raids.
+Personal strength uses 65% of the selected party's army strength, plus twice the combined character attack and defense, with equipped bonuses. Hero attack starts at 20 plus the equipped weapon; defense starts at 10 plus the equipped helm, chest, greaves, boots and shield. Character equipment does not risk loss on army-only raids.
 
 ## Casualties, including victories
 
@@ -77,7 +77,7 @@ Battle reports show one decisive exchange, not a multi-round or real-time combat
 
 ## Companions
 
-Companions are dungeon discoveries: 1% per Woods victory, 2% in Hollowcrypt, 4% in Ember Citadel. They must be extracted if found on a personal expedition, then equipped in the character inventory. One can be equipped at a time.
+Companions are dungeon discoveries: 1% / 2% / 4% / 5% / 6% / 8% by region. They must be extracted if found on a personal expedition, then equipped in the character inventory. One can be equipped at a time.
 
 A healthy equipped companion adds its listed percentage to army/character strength and reduces dungeon casualties by that percentage. All five rarities can now drop, with harder regions favoring better companions. Base bonuses are 2/3/4/5/6 percent by rarity, plus a separately rolled 0.00-2.00 percentage points of innate quality.
 
@@ -93,11 +93,13 @@ Existing companions retain their rarity, power and XP; missing quality and abili
 
 ## Loot and discovery
 
-Ordinary stages have a 65% gear-drop chance; bosses guarantee rare-or-better gear. Higher regions improve rarity. Gold varies by ±10% around the stage reward before the personal-expedition bonus. Chests contain 50% weapons and 50% armor internally. Dungeon loot pools and undiscovered runes remain hidden. Chest rarity odds and guarantee progress are now visible before purchase. Battle loot shows its power difference from currently equipped character weapons/armor; personal loot must be extracted before equipping. The tenth consecutive chest without epic-or-better guarantees at least epic.
+Ordinary stages have a 65% gear-drop chance; bosses guarantee rare-or-better gear. Higher regions improve rarity. Gold varies by ±10% around the stage reward before the personal-expedition bonus. Chests contain 35% weapons and 65% armor so the five armor slots remain practical to fill. Dungeon loot pools and undiscovered runes remain hidden. Chest rarity odds and guarantee progress are now visible before purchase. Battle loot compares against the matching equipped slot; personal loot must be extracted before equipping. The tenth consecutive chest without epic-or-better guarantees at least epic.
+
+The character loadout has weapon, helm, chest, greaves, boots and shield slots, plus two rune slots and one companion. Whispering Woods, Hollowcrypt and Ember Citadel each have a five-piece dungeon set. Set bonuses activate at two, three and five equipped pieces. The first complete art pass covers Briarwarden Regalia; the other set slots already function and use fallback icons until their media is added.
 
 Runes remain in dungeon loot but are not advertised to undiscovered players: no empty rune tab, slot, stat, onboarding mention or dungeon probability row. A first discovery reveals their interface; discovery persists even after selling or losing the item. Existing rune owners keep access. This is a player-facing discovery system, not a claim that client source code cannot reveal the feature.
 
-Developer spoiler: independent rune drop rates remain 4%, 8%, 14% across the three regions. Equip up to two, with a combined bonus cap of 30%. A rune carried by the character can be lost on personal defeat.
+Developer spoiler: independent rune drop rates are 4%, 8%, 14%, 17%, 20% and 24% across the six regions. Equip up to two, with a combined bonus cap of 30%. A rune carried by the character can be lost on personal defeat.
 
 ## PvP and seasons
 
@@ -144,7 +146,11 @@ Banks remain untouched. Failed attacks steal nothing. Successful raids atomicall
 
 ### Barracks
 
-The Armory includes barracks expansions. Each upgrade adds 20 beds on top of settlement capacity, up to 20 expansions (+400 beds; 560 at Citadel). Upgrade cost is rounded `600 * 1.35^currentExpansionLevel`. Recruitment and equipment orders support expanded armies, with an order/storage limit of 1,000. Troop capacity still limits recruitment. Upgrades do not grant free soldiers or equipment.
+The Armory includes six barracks expansions. Every expansion doubles the current settlement's base troop capacity: 2×, 4×, 8×, 16×, 32× and 64×. Upgrade cost is `800 * 2^currentExpansionLevel`, from 800 through 25,600 gold. A fully expanded Citadel holds 10,240 troops. Recruitment and equipment orders retain their 1,000-per-order/storage limits. Upgrades grant capacity only, never free soldiers or gear. Older flat-capacity saves migrate upward to the nearest new doubling tier.
+
+### Permanent combat upgrades
+
+War Doctrine and Fortifications each have eight levels. Every level adds a permanent +5% multiplier to army attack or realm defense, for +40% at maximum. Both tracks cost `1,500 * 2^currentLevel`, from 1,500 through 192,000 gold. War Doctrine requires the Armory; Fortifications requires the Watchtower. These multipliers apply after normal troop and equipment strength and are validated by the server.
 
 ### Bank upgrades and interest
 
@@ -159,6 +165,9 @@ Interest compounds per tick into protected savings, retains fractional gold betw
 | Whispering Woods | 180 | 260 | 380 | 520 | 850 |
 | Hollowcrypt | 600 | 780 | 1,000 | 1,350 | 2,100 |
 | Ember Citadel | 1,500 | 1,900 | 2,400 | 3,200 | 4,800 |
+| Frostmere Bastion | 5,200 | 6,500 | 8,200 | 10,500 | 16,000 |
+| Sunken Dominion | 17,500 | 22,000 | 28,000 | 36,000 | 54,000 |
+| Starfall Sanctum | 60,000 | 76,000 | 96,000 | 122,000 | 185,000 |
 
 Winning casualties still permanently destroy equipped soldier gear. The lower victory rates, single rounding step and higher gold rewards improve net returns; defeat remains 45% before modifiers. Oversized or aggressive parties still have real replacement costs. In the regression scenario, a prepared 20-spear/armor Woodland boss party retains at least 65% of its gold after replacing casualties and lost kits, before selling any loot.
 

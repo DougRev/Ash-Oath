@@ -1,4 +1,4 @@
-import { barracksLevel } from '../game/progression';
+import { barracksCapacity } from '../game/progression';
 import {
   ArrowRight,
   Castle,
@@ -99,9 +99,9 @@ export function Settlement() {
               <Users size={18} />
               <span>Troop capacity</span>
               <strong>
-                {tier.capacity + barracksLevel(game) * 20}
+                {barracksCapacity(game, tier.capacity)}
                 <ArrowRight size={12} />
-                {(next?.capacity ?? tier.capacity) + barracksLevel(game) * 20}
+                {barracksCapacity(game, next?.capacity ?? tier.capacity)}
               </strong>
             </div>
             <div>

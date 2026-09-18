@@ -3,7 +3,16 @@ import { Shield, Swords } from 'lucide-react';
 import { useGame } from '../game/context';
 import { assignedWeapons, equipmentFor, stats, format } from '../game/engine';
 import { UNIT_WEAPONS } from '../game/data';
-import { barracksCost, barracksLevel, MAX_BARRACKS } from '../game/progression';
+import {
+  barracksCost,
+  barracksLevel,
+  defenseLevel,
+  defenseUpgradeCost,
+  MAX_BARRACKS,
+  MAX_COMBAT_UPGRADE,
+  offenseLevel,
+  offenseUpgradeCost,
+} from '../game/progression';
 import type { Role } from '../game/types';
 import { Button } from './ui';
 
@@ -102,7 +111,7 @@ export function ForceSummary({
 }
 
 export function ArmyManagement({ onEquip }: { onEquip: (role: Role) => void }) {
-  const { game, act } = useGame();
+  const { game, act, busy } = useGame();
   const st = stats(game);
   const total = game.troops.offense + game.troops.defense;
   const [role, setRole] = useState<Role>('offense');
@@ -111,6 +120,7 @@ export function ArmyManagement({ onEquip }: { onEquip: (role: Role) => void }) {
   const [transfer, setTransfer] = useState(1);
   const free = Math.max(0, st.capacity - total),
     affordable = Math.min(free, Math.floor(game.gold / 60));
+  const nextCapacity = st.capacity * 2;
   const valid = Number.isInteger(count) && count > 0 && count <= 1000;
   return (
     <div className="army-command">
@@ -129,7 +139,7 @@ export function ArmyManagement({ onEquip }: { onEquip: (role: Role) => void }) {
           <progress aria-label="Troop capacity" value={total} max={st.capacity} />
           <span>
             <strong>
-              {total} / {st.capacity}
+              {format(total)} / {format(st.capacity)}
             </strong>{' '}
             troop capacity · {free} free beds
           </span>
@@ -137,6 +147,7 @@ export function ArmyManagement({ onEquip }: { onEquip: (role: Role) => void }) {
         <Button
           variant="secondary"
           disabled={
+            busy ||
             !game.buildings.armory ||
             barracksLevel(game) >= MAX_BARRACKS ||
             game.gold < barracksCost(game)
@@ -145,8 +156,66 @@ export function ArmyManagement({ onEquip }: { onEquip: (role: Role) => void }) {
         >
           {barracksLevel(game) >= MAX_BARRACKS
             ? 'Fully expanded'
-            : `Expand barracks · ${format(barracksCost(game))} gold`}
+            : `Double to ${format(nextCapacity)} beds · ${format(barracksCost(game))} gold`}
         </Button>
+      </section>
+      <section className="doctrine-section" aria-label="Permanent combat upgrades">
+        <div className="section-heading">
+          <div>
+            <h2>Command upgrades</h2>
+            <p>Permanent percentage bonuses scale every soldier and every equipment tier.</p>
+          </div>
+        </div>
+        <div className="doctrine-grid">
+          <article>
+            <Swords size={25} />
+            <div>
+              <span>War Doctrine</span>
+              <strong>+{offenseLevel(game) * 5}% army attack</strong>
+              <small>
+                Level {offenseLevel(game)} / {MAX_COMBAT_UPGRADE} · Next level adds +5%
+              </small>
+            </div>
+            <Button
+              variant="secondary"
+              disabled={
+                !game.buildings.armory ||
+                offenseLevel(game) >= MAX_COMBAT_UPGRADE ||
+                game.gold < offenseUpgradeCost(game)
+              }
+              onClick={() => act({ type: 'upgradeOffense' })}
+            >
+              {offenseLevel(game) >= MAX_COMBAT_UPGRADE
+                ? 'Doctrine mastered'
+                : `Train · ${format(offenseUpgradeCost(game))} gold`}
+            </Button>
+          </article>
+          <article>
+            <Shield size={25} />
+            <div>
+              <span>Fortifications</span>
+              <strong>+{defenseLevel(game) * 5}% realm defense</strong>
+              <small>
+                Level {defenseLevel(game)} / {MAX_COMBAT_UPGRADE} · Next level adds +5%
+              </small>
+            </div>
+            <Button
+              variant="secondary"
+              disabled={
+                !game.buildings.watchtower ||
+                defenseLevel(game) >= MAX_COMBAT_UPGRADE ||
+                game.gold < defenseUpgradeCost(game)
+              }
+              onClick={() => act({ type: 'upgradeDefense' })}
+            >
+              {defenseLevel(game) >= MAX_COMBAT_UPGRADE
+                ? 'Walls perfected'
+                : !game.buildings.watchtower
+                  ? 'Build the Watchtower first'
+                  : `Reinforce · ${format(defenseUpgradeCost(game))} gold`}
+            </Button>
+          </article>
+        </div>
       </section>
       {!game.buildings.armory && (
         <div className="command-notice">

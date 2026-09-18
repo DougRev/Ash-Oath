@@ -7,7 +7,12 @@ import { useGame } from '../game/context';
 
 import { Button, EmptyState, ItemTile } from './ui';
 
-import { runeDiscovered, companionLevel } from '../game/engine';
+import {
+  armorSetProgress,
+  companionLevel,
+  equipmentSlot,
+  runeDiscovered,
+} from '../game/engine';
 
 import type { ItemKind } from '../game/types';
 
@@ -74,7 +79,11 @@ export function Inventory({ trading = false }: { trading?: boolean }) {
             const equipped = game.equipped.includes(item.id);
 
             const current = game.inventory.find(
-              (i) => i.kind === item.kind && game.equipped.includes(i.id),
+              (i) =>
+                game.equipped.includes(i.id) &&
+                (equipmentSlot(item)
+                  ? equipmentSlot(i) === equipmentSlot(item)
+                  : i.kind === item.kind),
             );
 
             const isRuneFull =
@@ -220,36 +229,69 @@ export function LoadoutSummary() {
   const { game } = useGame();
 
   const slots = [
-    { kind: 'weapon', label: 'Weapon', icon: Sword },
-
-    { kind: 'armor', label: 'Armor', icon: Shield },
-
-    { kind: 'rune', label: 'Runes', icon: Gem },
+    { id: 'weapon', kind: 'weapon', label: 'Weapon', icon: Sword },
+    { id: 'helm', kind: 'armor', label: 'Helm', icon: Shield },
+    { id: 'chest', kind: 'armor', label: 'Chest', icon: Shield },
+    { id: 'greaves', kind: 'armor', label: 'Greaves', icon: Shield },
+    { id: 'boots', kind: 'armor', label: 'Boots', icon: Shield },
+    { id: 'shield', kind: 'armor', label: 'Shield', icon: Shield },
+    { id: 'rune', kind: 'rune', label: 'Runes', icon: Gem },
   ] as const;
+  const sets = armorSetProgress(game);
 
   return (
-    <div className="loadout-summary">
-      {slots
-        .filter((slot) => slot.kind !== 'rune' || runeDiscovered(game))
-        .map((slot) => {
-          const equipped = game.inventory.filter(
-            (i) => i.kind === slot.kind && game.equipped.includes(i.id),
-          );
+    <>
+      <div className="loadout-summary">
+        {slots
+          .filter((slot) => slot.kind !== 'rune' || runeDiscovered(game))
+          .map((slot) => {
+            const equipped = game.inventory.filter(
+              (i) =>
+                game.equipped.includes(i.id) &&
+                (slot.kind === 'rune'
+                  ? i.kind === 'rune'
+                  : equipmentSlot(i) === slot.id),
+            );
 
-          const Icon = slot.icon;
+            const Icon = slot.icon;
 
-          return (
-            <div key={slot.kind}>
-              <Icon size={23} />
+            return (
+              <div key={slot.id}>
+                <Icon size={23} />
 
-              <span>
-                <small>{slot.label}</small>
+                <span>
+                  <small>{slot.label}</small>
 
-                <strong>{equipped.map((i) => i.name).join(' + ') || 'Empty slot'}</strong>
-              </span>
-            </div>
-          );
-        })}
-    </div>
+                  <strong>{equipped.map((i) => i.name).join(' + ') || 'Empty slot'}</strong>
+                </span>
+              </div>
+            );
+          })}
+      </div>
+      <section className="armor-set-progress" aria-label="Armor set bonuses">
+        <div className="section-heading">
+          <div>
+            <h2>Armor sets</h2>
+            <p>Collect matching pieces from their home dungeon to activate permanent loadout bonuses.</p>
+          </div>
+        </div>
+        <div className="armor-set-grid">
+          {sets.map((set) => (
+            <article key={set.id}>
+              <span>{set.count} / 5 equipped</span>
+              <h3>{set.name}</h3>
+              <small>{set.dungeon === 0 ? 'Whispering Woods' : set.dungeon === 1 ? 'Hollowcrypt' : 'Ember Citadel'}</small>
+              <ul>
+                {set.bonuses.map((bonus) => (
+                  <li className={set.count >= bonus.pieces ? 'active' : ''} key={bonus.pieces}>
+                    <strong>{bonus.pieces} pieces</strong> {bonus.text}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }

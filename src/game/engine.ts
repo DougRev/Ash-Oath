@@ -5,9 +5,17 @@ import {
   bankLevel,
   bankUpgradeCost,
   MAX_BANK,
+  barracksCapacity,
   barracksCost,
   barracksLevel,
   MAX_BARRACKS,
+  defenseBonus,
+  defenseLevel,
+  defenseUpgradeCost,
+  MAX_COMBAT_UPGRADE,
+  offenseBonus,
+  offenseLevel,
+  offenseUpgradeCost,
   seasonKey,
 } from './progression';
 import {
@@ -20,6 +28,8 @@ import {
 export { companionLevel } from './companions';
 import {
   AP_CAP,
+  ARMOR_SETS,
+  ARMOR_SLOTS,
   BANK_DEPOSIT_FEE,
   BUILDINGS,
   CHESTS,
@@ -34,7 +44,18 @@ import {
   UNIT_WEAPONS,
   enemyStyle,
 } from './data';
-import type { Action, Activity, Battle, GameState, Item, ItemKind, Rarity, Tactic } from './types';
+import type {
+  Action,
+  Activity,
+  ArmorSetId,
+  Battle,
+  EquipmentSlot,
+  GameState,
+  Item,
+  ItemKind,
+  Rarity,
+  Tactic,
+} from './types';
 
 import { pvpLoot } from './pvpLoot';
 import { RIVALS, RIVAL_COOLDOWN, RIVAL_DAILY_WINS } from './rivals';
@@ -64,12 +85,13 @@ export function newGame(now = Date.now()): GameState {
     lastTick: now,
     gold: 1800,
     ap: 36,
+    progressionVersion: 2,
     level: 0,
     faction: null,
     troops: { offense: 6, defense: 4 },
     arms: { offense: 6, defense: 4 },
     buildings: { armory: false, blacksmith: false, trader: false, watchtower: false },
-    cleared: [0, 0, 0],
+    cleared: DUNGEONS.map(() => 0),
     inventory: [
       {
         id: 'r1',
@@ -78,6 +100,7 @@ export function newGame(now = Date.now()): GameState {
         rarity: 'common',
         power: 14,
         value: 45,
+        slot: 'weapon',
       },
       {
         id: 'r2',
@@ -86,6 +109,7 @@ export function newGame(now = Date.now()): GameState {
         rarity: 'common',
         power: 10,
         value: 35,
+        slot: 'chest',
       },
     ],
     equipped: ['r1', 'r2'],
@@ -199,8 +223,72 @@ export const runeDiscovered = (s: GameState) =>
   s.inventory.some((i) => i.kind === 'rune') ||
   !!s.expedition?.items.some((i) => i.kind === 'rune');
 
+export const equipmentSlot = (item: Item): EquipmentSlot | undefined =>
+  item.slot ?? (item.kind === 'weapon' ? 'weapon' : item.kind === 'armor' ? 'chest' : undefined);
+
+export function armorSetProgress(s: GameState) {
+  const worn = s.inventory.filter(
+    (item) => item.kind === 'armor' && item.set && s.equipped.includes(item.id),
+  );
+  return ARMOR_SETS.map((set) => ({
+    ...set,
+    count: worn.filter((item) => item.set === set.id).length,
+  }));
+}
+
+function armorSetEffects(s: GameState) {
+  const counts = Object.fromEntries(
+    armorSetProgress(s).map((set) => [set.id, set.count]),
+  ) as Record<ArmorSetId, number>;
+  return {
+    heroAttack:
+      (counts.oathbound >= 2 ? 0.05 : 0) + (counts.emberforged >= 2 ? 0.06 : 0),
+    heroDefense: counts.briarwarden >= 2 ? 0.05 : 0,
+    attack:
+      (counts.oathbound >= 3 ? 0.05 : 0) + (counts.emberforged >= 3 ? 0.07 : 0),
+    defense: counts.briarwarden >= 3 ? 0.05 : 0,
+    personal:
+      (counts.briarwarden >= 5 ? 0.08 : 0) +
+      (counts.oathbound >= 5 ? 0.1 : 0) +
+      (counts.emberforged >= 5 ? 0.12 : 0),
+  };
+}
+
+function migrationNeeded(s: GameState) {
+  return (
+    s.progressionVersion !== 2 ||
+    s.cleared.length !== DUNGEONS.length ||
+    [...s.inventory, ...(s.expedition?.items ?? [])].some(
+      (item) => (item.kind === 'weapon' || item.kind === 'armor') && !item.slot,
+    )
+  );
+}
+
+function migrateState(s: GameState) {
+  if (s.progressionVersion !== 2) {
+    const legacyLevel = s.barracksLevel ?? 0;
+    const base = TIERS[s.level].capacity;
+    const legacyCapacity = base + legacyLevel * 20;
+    s.barracksLevel = Math.min(
+      MAX_BARRACKS,
+      Math.max(0, Math.ceil(Math.log2(legacyCapacity / base))),
+    );
+    s.progressionVersion = 2;
+  }
+  s.cleared = DUNGEONS.map((_, index) => s.cleared[index] ?? 0);
+  const normalize = (item: Item) => {
+    if (!item.slot && item.kind === 'weapon') item.slot = 'weapon';
+    if (!item.slot && item.kind === 'armor') item.slot = 'chest';
+  };
+  s.inventory.forEach(normalize);
+  s.expedition?.items.forEach(normalize);
+  s.lastBattle?.items.forEach(normalize);
+  if (s.lastLoot) normalize(s.lastLoot);
+}
+
 export function stats(s: GameState, now = Date.now()) {
   const equipped = s.inventory.filter((i) => s.equipped.includes(i.id));
+  const sets = armorSetEffects(s);
   const runes = Math.min(
     0.3,
     equipped.filter((i) => i.kind === 'rune').reduce((a, i) => a + i.power / 100, 0),
@@ -212,7 +300,8 @@ export function stats(s: GameState, now = Date.now()) {
     (s.troops.offense * 4 + weaponStrength(s, 'offense')) *
       (1 + runes + pet) *
       (1 + petAbility(s, 'ferocity', now)) *
-      (s.faction === 'iron' ? 1.05 : 1),
+      (s.faction === 'iron' ? 1.05 : 1) *
+      (1 + offenseBonus(s) + sets.attack),
   );
   const defense = Math.floor(
     (s.troops.defense * 4 +
@@ -220,15 +309,21 @@ export function stats(s: GameState, now = Date.now()) {
       (s.buildings.watchtower ? 30 : 0) +
       Math.min(s.troops.defense, equipmentFor(s, 'defense').armorEquipped) * 4) *
       (1 + runes + pet) *
-      (s.faction === 'tide' ? 1.05 : 1),
+      (s.faction === 'tide' ? 1.05 : 1) *
+      (1 + defenseBonus(s) + sets.defense),
   );
-  const heroAttack =
-    20 + equipped.filter((i) => i.kind === 'weapon').reduce((a, i) => a + i.power, 0);
-  const heroDefense =
-    10 + equipped.filter((i) => i.kind === 'armor').reduce((a, i) => a + i.power, 0);
+  const heroAttack = Math.floor(
+    (20 + equipped.filter((i) => i.kind === 'weapon').reduce((a, i) => a + i.power, 0)) *
+      (1 + sets.heroAttack),
+  );
+  const heroDefense = Math.floor(
+    (10 + equipped.filter((i) => i.kind === 'armor').reduce((a, i) => a + i.power, 0)) *
+      (1 + sets.heroDefense),
+  );
   const personal = Math.floor(
     (attack * 0.65 + (heroAttack + heroDefense) * 2 * (1 + runes + pet)) *
-      (s.faction === 'ashen' ? 1.1 : 1),
+      (s.faction === 'ashen' ? 1.1 : 1) *
+      (1 + sets.personal),
   );
   return {
     attack,
@@ -239,29 +334,31 @@ export function stats(s: GameState, now = Date.now()) {
     runes,
     pet,
     income: Math.floor(TIERS[s.level].income * (s.faction === 'verdant' ? 1.05 : 1)),
-    capacity: TIERS[s.level].capacity + barracksLevel(s) * 20,
+    capacity: barracksCapacity(s, TIERS[s.level].capacity),
   };
 }
 export function accrue(s: GameState, now = Date.now()): GameState {
-  if (now <= s.lastTick || now - s.lastTick < TICK_MS) return s;
-  const ticks = Math.min(Math.floor((now - s.lastTick) / TICK_MS), OFFLINE_CAP / TICK_MS);
-  const gold = ticks * stats(s).income;
-  const ap = Math.min(AP_CAP - s.ap, ticks * 5);
-  let savings = s.bankGold ?? 0;
-  let remainder = s.bankInterestRemainder ?? 0;
-  for (let tick = 0; tick < ticks && savings < bankCapacity(s); tick++) {
-    const interest = savings * bankRate(s) + remainder;
-    const credited = Math.min(bankCapacity(s) - savings, Math.floor(interest));
+  const base = migrationNeeded(s) ? structuredClone(s) : s;
+  if (base !== s) migrateState(base);
+  if (now <= base.lastTick || now - base.lastTick < TICK_MS) return base;
+  const ticks = Math.min(Math.floor((now - base.lastTick) / TICK_MS), OFFLINE_CAP / TICK_MS);
+  const gold = ticks * stats(base).income;
+  const ap = Math.min(AP_CAP - base.ap, ticks * 5);
+  let savings = base.bankGold ?? 0;
+  let remainder = base.bankInterestRemainder ?? 0;
+  for (let tick = 0; tick < ticks && savings < bankCapacity(base); tick++) {
+    const interest = savings * bankRate(base) + remainder;
+    const credited = Math.min(bankCapacity(base) - savings, Math.floor(interest));
     savings += credited;
-    remainder = savings >= bankCapacity(s) ? 0 : interest - Math.floor(interest);
+    remainder = savings >= bankCapacity(base) ? 0 : interest - Math.floor(interest);
   }
   const next = {
-    ...s,
+    ...base,
     bankGold: savings,
     bankInterestRemainder: remainder,
-    gold: s.gold + gold,
-    ap: s.ap + ap,
-    lastTick: now - ((now - s.lastTick) % TICK_MS),
+    gold: base.gold + gold,
+    ap: base.ap + ap,
+    lastTick: now - ((now - base.lastTick) % TICK_MS),
     tribute: { gold, ap, ticks },
   };
   log(next, `Your people delivered ${format(gold)} gold and restored ${ap} AP.`, 'gold', now);
@@ -343,18 +440,23 @@ function makeItem(
   rng: () => number,
   kind?: ItemKind,
   area = 0,
+  setDrop = false,
 ): Item {
   const rank = RARITIES.indexOf(rarity);
   const actualKind = kind ?? (rng() < 0.5 ? 'weapon' : 'armor');
+  const slot: EquipmentSlot | undefined =
+    actualKind === 'weapon'
+      ? 'weapon'
+      : actualKind === 'armor'
+        ? ARMOR_SLOTS[Math.min(ARMOR_SLOTS.length - 1, Math.floor(rng() * ARMOR_SLOTS.length))]
+        : undefined;
+  const armorSet =
+    actualKind === 'armor' && setDrop && DUNGEONS[area].lootSet
+      ? ARMOR_SETS.find((set) => set.id === DUNGEONS[area].lootSet)
+      : undefined;
   const names = {
     weapon: ['Iron Longsword', 'Warden’s Edge', 'Moonsteel Saber', 'Oathkeeper', 'Dawnbringer'],
-    armor: [
-      'Scout’s Jerkin',
-      'Briarhide Coat',
-      'Sentinel’s Plate',
-      'Mantle of the Fallen',
-      'Aegis of the First King',
-    ],
+    armor: ['Scout’s', 'Briarhide', 'Sentinel’s', 'Fallen King’s', 'First King’s'],
     rune: [
       'Rune of Resolve',
       'Rune of Vigor',
@@ -372,11 +474,22 @@ function makeItem(
         : Math.floor([16, 25, 42, 70, 115][rank] * (1 + area * 0.3) + rng() * 6);
   return {
     id: uid(s),
-    name: names[actualKind][rank],
+    name:
+      armorSet && slot && slot !== 'weapon'
+        ? armorSet.pieces[slot]
+        : actualKind === 'armor' && slot
+          ? `${names.armor[rank]} ${
+              { helm: 'Helm', chest: 'Cuirass', greaves: 'Greaves', boots: 'Boots', shield: 'Shield' }[
+                slot as Exclude<EquipmentSlot, 'weapon'>
+              ]
+            }`
+          : names[actualKind][rank],
     kind: actualKind,
     rarity,
     power,
     value: [45, 80, 160, 380, 900][rank],
+    ...(slot ? { slot } : {}),
+    ...(armorSet ? { set: armorSet.id } : {}),
     ...(actualKind === 'pet'
       ? {
           xp: 0,
@@ -399,15 +512,18 @@ function dungeonLoot(s: GameState, dungeon: number, boss: boolean, rng: () => nu
           : [0, 0.16, 0.54, 0.26, 0.04];
     let rarity = rollRarity(odds, rng);
     if (boss && RARITIES.indexOf(rarity) < 2) rarity = 'rare';
-    items.push(makeItem(s, rarity, rng, undefined, dungeon));
+    items.push(makeItem(s, rarity, rng, undefined, dungeon, true));
   }
-  if (rng() < d.rune) items.push(makeItem(s, dungeon === 2 ? 'epic' : 'rare', rng, 'rune'));
+  if (rng() < d.rune)
+    items.push(makeItem(s, dungeon >= 4 ? 'legendary' : dungeon >= 2 ? 'epic' : 'rare', rng, 'rune'));
   if (rng() < d.pet)
     items.push(
       makeItem(
         s,
         rollRarity(
-          dungeon === 2
+          dungeon >= 4
+            ? [0, 0.02, 0.18, 0.5, 0.3]
+            : dungeon >= 2
             ? [0.05, 0.15, 0.4, 0.35, 0.05]
             : dungeon === 1
               ? [0.15, 0.3, 0.4, 0.14, 0.01]
@@ -416,6 +532,7 @@ function dungeonLoot(s: GameState, dungeon: number, boss: boolean, rng: () => nu
         ),
         rng,
         'pet',
+        dungeon,
       ),
     );
   return items;
@@ -459,7 +576,12 @@ export function applyAction(
       requireThat(barracksLevel(s) < MAX_BARRACKS, 'Barracks are fully upgraded.');
       pay(s, barracksCost(s));
       s.barracksLevel = barracksLevel(s) + 1;
-      log(s, `Barracks level ${s.barracksLevel}: room for 20 more soldiers.`, 'build', now);
+      log(
+        s,
+        `Barracks level ${s.barracksLevel}: troop capacity doubled to ${format(stats(s).capacity)}.`,
+        'build',
+        now,
+      );
       break;
     }
     case 'upgradeBank': {
@@ -470,6 +592,22 @@ export function applyAction(
       pay(s, bankUpgradeCost(s));
       s.bankLevel = bankLevel(s) + 1;
       log(s, `Bank upgraded to level ${s.bankLevel}.`, 'build', now);
+      break;
+    }
+    case 'upgradeOffense': {
+      requireThat(s.buildings.armory, 'Build the Armory first.');
+      requireThat(offenseLevel(s) < MAX_COMBAT_UPGRADE, 'War Doctrine is fully upgraded.');
+      pay(s, offenseUpgradeCost(s));
+      s.offenseLevel = offenseLevel(s) + 1;
+      log(s, `War Doctrine level ${s.offenseLevel}: +${s.offenseLevel * 5}% army attack.`, 'build', now);
+      break;
+    }
+    case 'upgradeDefense': {
+      requireThat(s.buildings.watchtower, 'Build the Watchtower first.');
+      requireThat(defenseLevel(s) < MAX_COMBAT_UPGRADE, 'Fortifications are fully upgraded.');
+      pay(s, defenseUpgradeCost(s));
+      s.defenseLevel = defenseLevel(s) + 1;
+      log(s, `Fortifications level ${s.defenseLevel}: +${s.defenseLevel * 5}% realm defense.`, 'build', now);
       break;
     }
 
@@ -1030,7 +1168,12 @@ export function applyAction(
       const item = s.inventory.find((i) => i.id === action.id);
       requireThat(item, 'Item not found.');
       requireThat(!s.equipped.includes(item.id), 'This item is already equipped.');
-      const same = s.inventory.filter((i) => s.equipped.includes(i.id) && i.kind === item.kind);
+      const slot = equipmentSlot(item);
+      const same = s.inventory.filter(
+        (i) =>
+          s.equipped.includes(i.id) &&
+          (slot ? equipmentSlot(i) === slot : i.kind === item.kind),
+      );
       if (item.kind === 'rune')
         requireThat(same.length < 2, 'Both rune slots are full. Unequip a rune first.');
       else s.equipped = s.equipped.filter((id) => !same.some((i) => i.id === id));
@@ -1063,7 +1206,7 @@ export function applyAction(
       s.pity = RARITIES.indexOf(rarity) >= 3 ? 0 : s.pity + 1;
       s.chestsOpened++;
       const typeRoll = rng();
-      const kind: ItemKind = typeRoll < 0.5 ? 'weapon' : 'armor';
+      const kind: ItemKind = typeRoll < 0.35 ? 'weapon' : 'armor';
       const item = makeItem(s, rarity, rng, kind);
       s.inventory.push(item);
       s.lastLoot = item;
@@ -1109,10 +1252,19 @@ export function validSave(value: unknown): value is GameState {
   const number = (n: unknown) => typeof n === 'number' && Number.isFinite(n) && n >= 0;
   return (
     s.version === 1 &&
+    s.progressionVersion === 2 &&
     (s.barracksLevel === undefined ||
       (Number.isInteger(s.barracksLevel) &&
         s.barracksLevel >= 0 &&
         s.barracksLevel <= MAX_BARRACKS)) &&
+    (s.offenseLevel === undefined ||
+      (Number.isInteger(s.offenseLevel) &&
+        s.offenseLevel >= 0 &&
+        s.offenseLevel <= MAX_COMBAT_UPGRADE)) &&
+    (s.defenseLevel === undefined ||
+      (Number.isInteger(s.defenseLevel) &&
+        s.defenseLevel >= 0 &&
+        s.defenseLevel <= MAX_COMBAT_UPGRADE)) &&
     (s.bankLevel === undefined ||
       (Number.isInteger(s.bankLevel) && s.bankLevel >= 1 && s.bankLevel <= MAX_BANK)) &&
     (s.bankInterestRemainder === undefined ||
@@ -1212,11 +1364,18 @@ export function validSave(value: unknown): value is GameState {
     Array.isArray(s.equipped) &&
     new Set(s.equipped).size === s.equipped.length &&
     s.equipped.every((id) => s.inventory.some((i) => i.id === id)) &&
-    (['weapon', 'armor', 'rune', 'pet'] as const).every(
-      (kind) =>
-        s.inventory.filter((i) => i.kind === kind && s.equipped.includes(i.id)).length <=
-        (kind === 'rune' ? 2 : 1),
-    ) &&
+    s.inventory.filter((i) => i.kind === 'rune' && s.equipped.includes(i.id)).length <= 2 &&
+    s.inventory.filter((i) => i.kind === 'pet' && s.equipped.includes(i.id)).length <= 1 &&
+    new Set(
+      s.inventory
+        .filter(
+          (i) => (i.kind === 'weapon' || i.kind === 'armor') && s.equipped.includes(i.id),
+        )
+        .map((i) => equipmentSlot(i)),
+    ).size ===
+      s.inventory.filter(
+        (i) => (i.kind === 'weapon' || i.kind === 'armor') && s.equipped.includes(i.id),
+      ).length &&
     (s.defenseReadSeq === undefined ||
       (Number.isSafeInteger(s.defenseReadSeq) &&
         s.defenseReadSeq >= 0 &&
@@ -1280,7 +1439,7 @@ export function validSave(value: unknown): value is GameState {
         s.expedition.items.every(validItem) &&
         Number.isInteger(s.expedition.dungeon) &&
         s.expedition.dungeon >= 0 &&
-        s.expedition.dungeon < 3 &&
+        s.expedition.dungeon < DUNGEONS.length &&
         Number.isInteger(s.expedition.nextStage) &&
         s.expedition.nextStage >= 1 &&
         s.expedition.nextStage <= 6))
@@ -1304,6 +1463,11 @@ function validItem(value: unknown): value is Item {
       (Number.isFinite(item.injuredUntil) && item.injuredUntil >= 0)) &&
     RARITIES.includes(item.rarity) &&
     ['weapon', 'armor', 'rune', 'pet'].includes(item.kind) &&
+    (item.slot === undefined ||
+      ['weapon', 'helm', 'chest', 'greaves', 'boots', 'shield'].includes(item.slot)) &&
+    (item.set === undefined || ARMOR_SETS.some((set) => set.id === item.set)) &&
+    (item.kind !== 'weapon' || equipmentSlot(item) === 'weapon') &&
+    (item.kind !== 'armor' || equipmentSlot(item) !== 'weapon') &&
     Number.isFinite(item.power) &&
     item.power >= 0 &&
     Number.isFinite(item.value) &&

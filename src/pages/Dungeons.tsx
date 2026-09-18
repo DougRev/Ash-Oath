@@ -257,11 +257,13 @@ export function Dungeons() {
 
       <div className="dungeon-layout">
         <section className={`dungeon-scene ${d.color}`}>
-          <img
-            src={`/art/${area === 0 ? 'dungeon' : area === 1 ? 'crypt' : 'ember'}.webp`}
-
-            alt={`${d.name}, a dangerous and atmospheric dungeon`}
-          />
+          {d.media ? (
+            <img src={`/art/${d.media}.webp`} alt={`${d.name}, a dangerous and atmospheric dungeon`} />
+          ) : (
+            <div className="dungeon-scene-placeholder" aria-hidden="true">
+              <span>{String(area + 1).padStart(2, '0')}</span>
+            </div>
+          )}
 
           <div className="dungeon-scene-top">
             <span className="region-label">{d.region}</span>
@@ -323,10 +325,10 @@ export function Dungeons() {
             {stage === 5 ? <Crown size={19} /> : <DoorOpen size={19} />}
           </div>
 
-          {stage === 5 && (
+          {stage === 5 && d.bossMedia && (
             <img
               className="boss-portrait"
-              src={`/art/${['thornbound-boss', 'oathless-boss', 'flame-boss'][area]}.webp`}
+              src={`/art/${d.bossMedia}.webp`}
               alt={d.names[4]}
             />
           )}

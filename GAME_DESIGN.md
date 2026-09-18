@@ -72,7 +72,7 @@ Demo opponents remain simulated. Firebase PvP uses enlisted accounts within one 
 
 ## Dungeon progression
 
-Three authored areas begin the vertical slice: Whispering Woods, Hollowcrypt, and the Ember Citadel. Each has five stages; stage five is a boss. A cleared stage stays replayable. Defeating an area’s boss opens the next area. Enemy strength and reward quality rise together.
+Six authored areas form the current campaign: Whispering Woods, Hollowcrypt, Ember Citadel, Frostmere Bastion, Sunken Dominion and Starfall Sanctum. Each has five stages; stage five is a boss. A cleared stage stays replayable. Defeating an area’s boss opens the next area. Enemy strength and reward quality rise together. The first three areas have final environment and boss art; the final three deliberately use code-native atmospheric scenes until their media pass is produced.
 
 Army mode banks gold and drops after every stage, with capped troop casualties on defeat. Personal mode unlocks at Village. The player leads an offensive party, builds an expedition satchel, and chooses extract or push deeper. Defeat loses the satchel and equipped hero items, including equipped runes and pet; stored inventory and the settlement survive. The next attempt begins with the base character, so the loss is meaningful without deleting the account.
 
@@ -80,7 +80,7 @@ Keep the risk acknowledgment beside the launch action. A battle recap should rev
 
 ## Loot, runes, and pets
 
-Weapons improve hero attack. Armor improves hero defense. Runes occupy two slots and improve army and character strength, capped at +30% in this slice. Duplicates can be sold for gold. Rare companion drops are a collection goal with a modest passive bonus, not a required random gate.
+Weapons improve hero attack. Helm, chest, greaves, boots and shield pieces improve hero defense. Three five-piece dungeon sets activate bonuses at two, three and five equipped pieces, creating a reason to mix raw power against set completion. Runes occupy two slots and improve army and character strength, capped at +30% in this slice. Duplicates can be sold for gold. Rare companion drops are a collection goal with a modest passive bonus, not a required random gate.
 
 Show drop probabilities before the raid, including exact rune and pet chances. Higher areas improve both. Gear rarity controls stat ranges and sale values. Compare a new item against the equipped slot. Equip and sell are separate actions; equipped items cannot be sold accidentally.
 

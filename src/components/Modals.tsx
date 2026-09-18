@@ -23,7 +23,7 @@ import { auth } from '../lib/firebase';
 import { friendlyError } from './Account';
 import { useGame } from '../game/context';
 import { FACTIONS, TICK_MS } from '../game/data';
-import { format } from '../game/engine';
+import { equipmentSlot, format } from '../game/engine';
 import { Button, Dialog, FactionIcon, ItemTile } from './ui';
 import type { FactionId } from '../game/types';
 
@@ -242,13 +242,19 @@ export function BattleDialog() {
                   key={item.id}
                   item={item}
                   current={game.inventory.filter(
-                    (i) => i.kind === item.kind && game.equipped.includes(i.id),
+                    (i) =>
+                      game.equipped.includes(i.id) &&
+                      (equipmentSlot(item)
+                        ? equipmentSlot(i) === equipmentSlot(item)
+                        : i.kind === item.kind),
                   )}
                   comparison={
                     ['weapon', 'armor'].includes(item.kind)
                       ? item.power -
                         (game.inventory.find(
-                          (i) => i.kind === item.kind && game.equipped.includes(i.id),
+                          (i) =>
+                            game.equipped.includes(i.id) &&
+                            equipmentSlot(i) === equipmentSlot(item),
                         )?.power ?? 0)
                       : undefined
                   }

@@ -1,0 +1,245 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: frontend.spec.ts >> progression update shows odds, rankings, upgrades, companion growth and loot comparisons
+- Location: tests\frontend.spec.ts:449:1
+
+# Error details
+
+```
+Error: expect(locator).toContainText(expected) failed
+
+Locator: getByRole('region', { name: 'Barracks capacity' })
+Expected substring: "Level 4 / 6"
+Received string:    "BarracksLevel 3 / 6110 / 880 troop capacity · 770 free bedsDouble to 1,760 beds · 6,400 gold"
+Timeout: 15000ms
+
+Call log:
+  - Expect "toContainText" getByRole('region', { name: 'Barracks capacity' }) with timeout 15000ms
+  - waiting for getByRole('region', { name: 'Barracks capacity' })
+    33 × locator resolved to <section class="barracks-band" aria-label="Barracks capacity">…</section>
+       - unexpected value "BarracksLevel 3 / 6110 / 880 troop capacity · 770 free bedsDouble to 1,760 beds · 6,400 gold"
+
+```
+
+```yaml
+- region "Barracks capacity":
+  - heading "Barracks" [level=3]
+  - text: Level 3 / 6
+  - progressbar "Troop capacity"
+  - strong: 110 / 880
+  - text: troop capacity · 770 free beds
+  - button "Double to 1,760 beds · 6,400 gold"
+```
+
+# Test source
+
+```ts
+  421 |   // Reset only this emulator fixture to a starter realm for a guaranteed, useful bounty.
+  422 |   const starter = require('./lib/src/game/engine.js').newGame();
+  423 |   starter.faction = 'iron';
+  424 |   await db.doc(`realms/${user.uid}`).set({ ...realm, game: starter, revision: 3 });
+  425 |   await page.goto('http://127.0.0.1:5180/#war');
+  426 |   const rivals = page.getByRole('region', { name: 'AI rival strongholds' });
+  427 |   await rivals.getByLabel('Scout settlement tier').selectOption('0');
+  428 |   await expect(rivals.locator('.rival-card')).toHaveCount(3);
+  429 |   await page.screenshot({ path: 'test-results/rivals-desktop.png', fullPage: false });
+  430 |   await rivals
+  431 |     .locator('.rival-card')
+  432 |     .filter({ hasText: 'Bramble Camp' })
+  433 |     .getByRole('button', { name: 'Scout AI rival' })
+  434 |     .click();
+  435 |   await page.getByRole('button', { name: /Raid AI stronghold/ }).click();
+  436 |   await expect(page.getByRole('dialog')).toContainText('Bramble Camp (AI)');
+  437 |   await expect(page.getByRole('dialog')).toContainText('400');
+  438 |   await page.getByRole('button', { name: 'Close dialog', exact: true }).click();
+  439 |   await expect(rivals).toContainText('11 / 12 paid victories');
+  440 |   await expect(
+  441 |     rivals.locator('.rival-card').filter({ hasText: 'Bramble Camp' }).getByRole('button'),
+  442 |   ).toBeDisabled();
+  443 |   await page.setViewportSize({ width: 390, height: 844 });
+  444 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  445 |   await page.screenshot({ path: 'test-results/rivals-mobile.png', fullPage: false });
+  446 |   expect(errors).toEqual([]);
+  447 | });
+  448 | 
+  449 | test('progression update shows odds, rankings, upgrades, companion growth and loot comparisons', async ({
+  450 |   page,
+  451 | }) => {
+  452 |   const { createRequire } = await import('node:module');
+  453 |   const require = createRequire(new URL('../functions/package.json', import.meta.url));
+  454 |   process.env.FIRESTORE_EMULATOR_HOST = '127.0.0.1:8080';
+  455 |   process.env.FIREBASE_AUTH_EMULATOR_HOST = '127.0.0.1:9099';
+  456 |   const app = require('firebase-admin/app').initializeApp(
+  457 |     { projectId: 'demo-ash-and-oath' },
+  458 |     `progression-${Date.now()}`,
+  459 |   );
+  460 |   const db = require('firebase-admin/firestore').getFirestore(app, '(default)');
+  461 |   const email = `progression-${Date.now()}@example.test`,
+  462 |     password = 'Emulator-only-123';
+  463 |   const user = await require('firebase-admin/auth')
+  464 |     .getAuth(app)
+  465 |     .createUser({ email, password, emailVerified: true });
+  466 |   const game = require('./lib/src/game/engine.js').newGame();
+  467 |   Object.assign(game, {
+  468 |     name: 'Progression Tester',
+  469 |     cleared: [4, 0, 0],
+  470 |     level: 4,
+  471 |     gold: 30000,
+  472 |     barracksLevel: 3,
+  473 |     faction: 'iron',
+  474 |     troops: { offense: 100, defense: 10 },
+  475 |     arms: { offense: 100, defense: 10 },
+  476 |     buildings: { armory: true, blacksmith: true, trader: true, watchtower: true, bank: true },
+  477 |   });
+  478 |   game.inventory.push({
+  479 |     id: 'r999',
+  480 |     name: 'Silverfang Wolf',
+  481 |     kind: 'pet',
+  482 |     rarity: 'rare',
+  483 |     power: 4,
+  484 |     quality: 125,
+  485 |     ability: 'ferocity',
+  486 |     abilityRoll: 150,
+  487 |     xp: 100,
+  488 |     value: 160,
+  489 |   });
+  490 |   game.equipped.push('r999');
+  491 |   game.seq = 999;
+  492 |   const realm = { game, revision: 0, enlisted: false, shieldUntil: 0, lastActionAt: 0 };
+  493 |   await db.doc(`realms/${user.uid}`).set(realm);
+  494 |   await db
+  495 |     .doc(`publicRealms/${user.uid}`)
+  496 |     .set(require('./lib/functions/src/combat.js').publicRealm(user.uid, realm));
+  497 |   const errors: string[] = [];
+  498 |   page.on('pageerror', (e) => errors.push(e.message));
+  499 |   await page.goto('http://127.0.0.1:5180/#trader');
+  500 |   await page.getByLabel('Email', { exact: true }).fill(email);
+  501 |   await page.getByLabel('Password', { exact: true }).fill(password);
+  502 |   await page.getByRole('button', { name: 'Enter your realm', exact: true }).click();
+  503 |   await page.goto('http://127.0.0.1:5180/#trader');
+  504 |   await expect(page.locator('.chest-odds')).toHaveCount(3);
+  505 |   await expect(page.locator('.chest-odds').first()).toContainText('55%');
+  506 |   await expect(page.locator('.chest-odds').last()).toContainText('32%');
+  507 |   await page.screenshot({ path: 'test-results/chest-odds.png', fullPage: true });
+  508 |   await page.getByRole('button', { name: 'Companions', exact: true }).click();
+  509 |   await expect(page.locator('.companion-details')).toContainText('2 / 500');
+  510 |   await expect(page.locator('.companion-details')).toContainText('ferocity');
+  511 |   await expect(page.locator('.companion-portrait')).toBeVisible();
+  512 |   expect(
+  513 |     await page
+  514 |       .locator('.companion-portrait')
+  515 |       .evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0),
+  516 |   ).toBe(true);
+  517 |   await page.locator('.companion-details').scrollIntoViewIfNeeded();
+  518 |   await page.screenshot({ path: 'test-results/companion-growth.png' });
+  519 |   await page.goto('http://127.0.0.1:5180/#army');
+  520 |   await page.getByRole('button', { name: /Double to/ }).click();
+> 521 |   await expect(page.getByRole('region', { name: 'Barracks capacity' })).toContainText(
+      |                                                                         ^ Error: expect(locator).toContainText(expected) failed
+  522 |     'Level 4 / 6',
+  523 |   );
+  524 |   await expect(page.getByRole('region', { name: 'Barracks capacity' })).toContainText('110 / 1,760');
+  525 |   await page.goto('http://127.0.0.1:5180/#war');
+  526 |   await page.getByRole('button', { name: /Double capacity/ }).click();
+  527 |   await expect(page.getByRole('heading', { name: 'Bank level 2 / 8' })).toBeVisible();
+  528 |   await expect(page.getByRole('region', { name: 'Overall power leaderboard' })).toContainText(
+  529 |     'Progression Tester',
+  530 |   );
+  531 |   await page.getByRole('button', { name: 'Change faction', exact: true }).click();
+  532 |   const dialog = page.getByRole('dialog');
+  533 |   await dialog
+  534 |     .getByRole('button')
+  535 |     .filter({ has: page.getByRole('heading', { name: 'Tidebound' }) })
+  536 |     .click();
+  537 |   await dialog.getByRole('button', { name: 'Change faction', exact: false }).click();
+  538 |   await expect(dialog).toHaveCount(0);
+  539 |   await expect(page.locator('.allegiance-bar')).toContainText('Tidebound');
+  540 |   await page.setViewportSize({ width: 390, height: 844 });
+  541 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  542 |   await page.getByRole('region', { name: 'Overall power leaderboard' }).scrollIntoViewIfNeeded();
+  543 |   await page.screenshot({ path: 'test-results/leaderboard-mobile.png' });
+  544 |   await page.setViewportSize({ width: 1440, height: 900 });
+  545 |   await page.goto('http://127.0.0.1:5180/#dungeons');
+  546 |   await page.getByRole('button', { name: /Send your army/ }).click();
+  547 |   await expect(page.getByRole('dialog', { name: 'Battle report' })).toBeVisible();
+  548 |   await expect(page.locator('.battle-items .item-compare').first()).toBeVisible();
+  549 |   expect(errors).toEqual([]);
+  550 | });
+  551 | 
+  552 | test('army overhaul exposes both forces and accurately previews partial equipment orders', async ({
+  553 |   page,
+  554 | }) => {
+  555 |   const { createRequire } = await import('node:module');
+  556 |   const require = createRequire(new URL('../functions/package.json', import.meta.url));
+  557 |   process.env.FIRESTORE_EMULATOR_HOST = '127.0.0.1:8080';
+  558 |   process.env.FIREBASE_AUTH_EMULATOR_HOST = '127.0.0.1:9099';
+  559 |   const app = require('firebase-admin/app').initializeApp(
+  560 |     { projectId: 'demo-ash-and-oath' },
+  561 |     `army-overhaul-${Date.now()}`,
+  562 |   );
+  563 |   const db = require('firebase-admin/firestore').getFirestore(app, '(default)');
+  564 |   const email = `army-${Date.now()}@example.test`,
+  565 |     password = 'Emulator-only-123';
+  566 |   const user = await require('firebase-admin/auth')
+  567 |     .getAuth(app)
+  568 |     .createUser({ email, password, emailVerified: true });
+  569 |   const game = require('./lib/src/game/engine.js').newGame();
+  570 |   Object.assign(game, {
+  571 |     level: 1,
+  572 |     gold: 9850,
+  573 |     faction: 'iron',
+  574 |     barracksLevel: 1,
+  575 |     troops: { offense: 20, defense: 10 },
+  576 |     arms: { offense: 18, defense: 8 },
+  577 |     buildings: { armory: true, blacksmith: true, trader: true, watchtower: false },
+  578 |     armyEquipment: {
+  579 |       offense: {
+  580 |         weapons: { militia: 15, spear: 10 },
+  581 |         equippedWeapons: { militia: 12, spear: 6 },
+  582 |         armorOwned: 14,
+  583 |         armorEquipped: 12,
+  584 |       },
+  585 |       defense: {
+  586 |         weapons: { militia: 8 },
+  587 |         equippedWeapons: { militia: 8 },
+  588 |         armorOwned: 6,
+  589 |         armorEquipped: 6,
+  590 |       },
+  591 |     },
+  592 |   });
+  593 |   await db
+  594 |     .doc(`realms/${user.uid}`)
+  595 |     .set({ game, revision: 0, enlisted: false, shieldUntil: 0, lastActionAt: 0 });
+  596 |   const errors: string[] = [];
+  597 |   page.on('pageerror', (e) => errors.push(e.message));
+  598 |   await page.setViewportSize({ width: 1440, height: 1000 });
+  599 |   await page.goto('http://127.0.0.1:5180/#army');
+  600 |   await page.getByLabel('Email', { exact: true }).fill(email);
+  601 |   await page.getByLabel('Password', { exact: true }).fill(password);
+  602 |   await page.getByRole('button', { name: 'Enter your realm', exact: true }).click();
+  603 |   await page.goto('http://127.0.0.1:5180/#army');
+  604 |   const offense = page.getByRole('region', { name: 'Offense overview' }),
+  605 |     defense = page.getByRole('region', { name: 'Defense overview' });
+  606 |   await expect(offense).toContainText('2 need weapons');
+  607 |   await expect(offense).toContainText('8 need armor');
+  608 |   await expect(defense).toContainText('4 need armor');
+  609 |   await page.screenshot({ path: 'test-results/army-overhaul-desktop.png', fullPage: true });
+  610 |   await page.getByRole('button', { name: 'Equip offense', exact: true }).click();
+  611 |   await page.getByRole('button', { name: 'Manage Sentinel spears' }).click();
+  612 |   const inspector = page.getByRole('region', { name: 'Manage selected equipment' });
+  613 |   await inspector.getByRole('button', { name: 'Fill weapon gap (2)', exact: true }).click();
+  614 |   await expect(inspector.locator('.kit-review')).toContainText(
+  615 |     '2 soldiers receive weapons. No kits replaced.',
+  616 |   );
+  617 |   await page.screenshot({ path: 'test-results/armory-overhaul-desktop.png', fullPage: true });
+  618 |   await inspector.getByRole('button', { name: /Equip 2 stored/ }).click();
+  619 |   await expect(inspector.locator('.kit-stock')).toContainText('Equipped8');
+  620 |   await expect(page.getByRole('region', { name: 'Offense readiness' })).toContainText(
+  621 |     '0 need weapons',
+```

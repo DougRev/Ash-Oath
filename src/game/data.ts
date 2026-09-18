@@ -1,4 +1,4 @@
-import type { Building, FactionId, Rarity, Tactic } from './types';
+import type { ArmorSetId, Building, EquipmentSlot, FactionId, Rarity, Tactic } from './types';
 
 export const TICK_MS = 5 * 60 * 1000;
 export const OFFLINE_CAP = 12 * 60 * 60 * 1000;
@@ -155,7 +155,23 @@ export const BUILDINGS: {
     benefit: '+30 realm defense',
   },
 ];
-export const DUNGEONS = [
+export interface DungeonDefinition {
+  name: string;
+  subtitle: string;
+  description: string;
+  region: string;
+  enemy: number[];
+  gold: number[];
+  names: string[];
+  rune: number;
+  pet: number;
+  color: string;
+  media?: string;
+  bossMedia?: string;
+  lootSet?: ArmorSetId;
+}
+
+export const DUNGEONS: DungeonDefinition[] = [
   {
     name: 'Whispering Woods',
     subtitle: 'A forgotten path. An uneasy silence.',
@@ -174,6 +190,9 @@ export const DUNGEONS = [
     rune: 0.04,
     pet: 0.01,
     color: 'woods',
+    media: 'dungeon',
+    bossMedia: 'thornbound-boss',
+    lootSet: 'briarwarden' as ArmorSetId,
   },
   {
     name: 'Hollowcrypt',
@@ -193,6 +212,9 @@ export const DUNGEONS = [
     rune: 0.08,
     pet: 0.02,
     color: 'crypt',
+    media: 'crypt',
+    bossMedia: 'oathless-boss',
+    lootSet: 'oathbound' as ArmorSetId,
   },
   {
     name: 'Ember Citadel',
@@ -212,8 +234,130 @@ export const DUNGEONS = [
     rune: 0.14,
     pet: 0.04,
     color: 'ember',
+    media: 'ember',
+    bossMedia: 'flame-boss',
+    lootSet: 'emberforged' as ArmorSetId,
+  },
+  {
+    name: 'Frostmere Bastion',
+    subtitle: 'Winter keeps what war forgets.',
+    description:
+      'A fortress entombed in blue ice. Its frozen sentries still answer a horn no living commander can hear.',
+    region: 'THE FROZEN REACHES',
+    enemy: [1900, 2250, 2700, 3250, 3900],
+    gold: [5200, 6500, 8200, 10500, 16000],
+    names: ['The White Road', 'Hall of Rime', 'The Broken Horn', 'Winterkeep', 'The Pale Castellan'],
+    rune: 0.17,
+    pet: 0.05,
+    color: 'frost',
+  },
+  {
+    name: 'Sunken Dominion',
+    subtitle: 'The drowned still pay tribute.',
+    description:
+      'Below the black tide lies a court of coral and chained bells, ruled by a sovereign who refused the sea.',
+    region: 'THE DROWNED COAST',
+    enemy: [4300, 5200, 6300, 7600, 9200],
+    gold: [17500, 22000, 28000, 36000, 54000],
+    names: ['The Low-Tide Gate', 'Drowned Gallery', 'Bellfoundry', 'Coral Throne', 'The Saltbound Queen'],
+    rune: 0.2,
+    pet: 0.06,
+    color: 'sunken',
+  },
+  {
+    name: 'Starfall Sanctum',
+    subtitle: 'A wound in heaven burns below.',
+    description:
+      'A shattered observatory surrounds the star that ended an age. Every step inward bends steel, memory, and time.',
+    region: 'THE CELESTIAL RUINS',
+    enemy: [10200, 12400, 15100, 18400, 22500],
+    gold: [60000, 76000, 96000, 122000, 185000],
+    names: ['The Fallen Lens', 'Orbiting Halls', 'The Glass Meridian', 'Astral Vault', 'The Star-Eater'],
+    rune: 0.24,
+    pet: 0.08,
+    color: 'starfall',
   },
 ];
+
+export const ARMOR_SLOTS: Exclude<EquipmentSlot, 'weapon'>[] = [
+  'helm',
+  'chest',
+  'greaves',
+  'boots',
+  'shield',
+];
+
+export const ARMOR_SETS: {
+  id: ArmorSetId;
+  name: string;
+  dungeon: number;
+  pieces: Record<Exclude<EquipmentSlot, 'weapon'>, string>;
+  bonuses: { pieces: 2 | 3 | 5; text: string }[];
+}[] = [
+  {
+    id: 'briarwarden',
+    name: 'Briarwarden Regalia',
+    dungeon: 0,
+    pieces: {
+      helm: 'Crown of Living Thorns',
+      chest: 'Briarwarden Cuirass',
+      greaves: 'Rootbound Greaves',
+      boots: 'Pathfinder Sabatons',
+      shield: 'Bulwark of the Elder Grove',
+    },
+    bonuses: [
+      { pieces: 2, text: '+5% hero defense' },
+      { pieces: 3, text: '+5% realm defense' },
+      { pieces: 5, text: '+8% personal expedition strength' },
+    ],
+  },
+  {
+    id: 'oathbound',
+    name: 'Oathbound Panoply',
+    dungeon: 1,
+    pieces: {
+      helm: 'Visage of the First Oath',
+      chest: 'Oathbound Plate',
+      greaves: 'Kingless Greaves',
+      boots: 'Silent March Sabatons',
+      shield: 'Shield of the Empty Throne',
+    },
+    bonuses: [
+      { pieces: 2, text: '+5% hero attack' },
+      { pieces: 3, text: '+5% army attack' },
+      { pieces: 5, text: '+10% personal expedition strength' },
+    ],
+  },
+  {
+    id: 'emberforged',
+    name: 'Emberforged Harness',
+    dungeon: 2,
+    pieces: {
+      helm: 'Cindercrest Helm',
+      chest: 'Emberforged Carapace',
+      greaves: 'Ashwalker Greaves',
+      boots: 'Sabatons of the Last Flame',
+      shield: 'Dawnfire Aegis',
+    },
+    bonuses: [
+      { pieces: 2, text: '+6% hero attack' },
+      { pieces: 3, text: '+7% army attack' },
+      { pieces: 5, text: '+12% personal expedition strength' },
+    ],
+  },
+];
+
+export const ARMOR_SET_MEDIA: Partial<
+  Record<ArmorSetId, Partial<Record<Exclude<EquipmentSlot, 'weapon'>, string>>>
+> = {
+  briarwarden: {
+    helm: '/art/gear/briarwarden-helm.webp',
+    chest: '/art/gear/briarwarden-chest.webp',
+    greaves: '/art/gear/briarwarden-greaves.webp',
+    boots: '/art/gear/briarwarden-boots.webp',
+    shield: '/art/gear/briarwarden-shield.webp',
+  },
+};
 export const TACTICS: { id: Tactic; name: string; multiplier: number; description: string }[] = [
   {
     id: 'balanced',

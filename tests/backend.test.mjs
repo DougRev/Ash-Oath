@@ -474,7 +474,7 @@ test('admin forecasts are read-only, bounded to the player army and revoked with
   );
   const result = await call(owner, 'adminDungeonForecast', data);
   assert.equal(result.status, 200, JSON.stringify(result));
-  assert.equal(result.result.rows.length, 15);
+  assert.equal(result.result.rows.length, 30);
   assert.equal(result.result.income, 30);
   assert.ok(result.result.rows.every((r) => r.min >= 1 && r.max <= 6 && r.defeat <= 6));
   assert.deepEqual(await saved(player), before);
@@ -716,7 +716,7 @@ test('building upgrades and seasonal faction changes are atomic and replay-safe'
   const c = command({ type: 'upgradeBarracks' });
   const upgraded = await call(a, 'performAction', c);
   assert.equal(upgraded.result.realm.game.barracksLevel, 1);
-  assert.equal((await call(a, 'performAction', c)).result.realm.game.gold, 9400);
+  assert.equal((await call(a, 'performAction', c)).result.realm.game.gold, 9200);
   await db.doc(`realms/${a.uid}`).update({ lastActionAt: 0 });
   const bank = await call(a, 'performAction', command({ type: 'upgradeBank' }, 1));
   assert.equal(bank.result.realm.game.bankLevel, 2);
